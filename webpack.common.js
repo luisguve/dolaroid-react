@@ -20,6 +20,11 @@ module.exports = {
             outputPath: "imgs"
           }
         }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"]
       }
     ]
   }
