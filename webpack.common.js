@@ -1,6 +1,6 @@
 module.exports = {
   entry: {
-    main: "./src/index.js",
+    main: "./src/index.jsx",
     vendor: "./src/vendor.js"
   },
   module: {
@@ -22,7 +22,7 @@ module.exports = {
         }
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ["babel-loader"]
       }
