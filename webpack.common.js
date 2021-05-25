@@ -13,18 +13,18 @@ module.exports = {
       },
       {
         test: /\.(svg|png|jpg|gif)$/,
-        use: {
-          loader: "file-loader",
-          options: {
-            name: "[name].[hash].[ext]",
-            outputPath: "imgs"
-          }
-        }
+        type: "asset/resource"
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ["babel-loader"]
+      },
+      {
+        test: /\.jsx?$/,
+        resolve: {
+          extensions: [".js", ".jsx"]
+        }
       }
     ]
   }

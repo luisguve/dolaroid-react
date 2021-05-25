@@ -1,5 +1,70 @@
+$primary: teal;
+$danger: purple;
+@import "~bootstrap/scss/bootstrap";
+
 body {
-	background: purple;
-	color: #dde;
-	font-family: sans-serif;
+  background: #e4e4e4;
+  color: darkblue;
+  font-family: sans-serif;
+}
+
+.icon {
+  max-width: 60px;
+  cursor: pointer;
+}
+.icon.disabled {
+  opacity: 0.5;
+  cursor: initial;
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  margin-left: -50vw;
+  top: 50%;
+  margin-top: -50vh;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0,60,60,0.8);
+}
+.drag-area{
+  background: $primary;
+  border: 2px dashed #fff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px;
+}
+.drag-area.active{
+  border: 2px solid #fff;
+}
+.drag-area img.upload {
+  width: 120px;
+}
+.drag-area header{
+  font-size: 30px;
+  font-weight: 500;
+  color: #fff;
+}
+.drag-area span{
+  font-size: 25px;
+  font-weight: 500;
+  color: #fff;
+  margin: 10px 0 15px 0;
+}
+.drag-area button{
+  padding: 10px 25px;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: #fff;
+  color: $primary;
+  border-radius: 5px;
+  cursor: pointer;
 }

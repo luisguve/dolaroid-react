@@ -1,27 +1,28 @@
 import "./main.scss";
 import React from "react";
 import ReactDOM from "react-dom";
+// Redux
+import { Provider } from "react-redux";
+import store from "./app/redux/store";
+// Components
+import Navbar from "./app/components/navbar";
+import Sidebar from "./app/components/sidebar";
+import Dashboard from "./app/components/dashboard";
+import Footer from "./app/components/footer";
 
 'use strict';
 
-class LikeButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { liked: false };
-  }
+const domContainer = document.querySelector('#react-app');
+ReactDOM.render(
+  <Provider store={store}>
+    <div className="container-fluid px-0 bg-light">
+      <Navbar />
+    </div>
+    <div className="container">
+      <Sidebar />
+      <Dashboard />
+    </div>
+    <Footer />
+  </Provider>, domContainer
+);
 
-  render() {
-    if (this.state.liked) {
-      return 'You liked this.';
-    }
-
-    return (
-      <button onClick={() => this.setState({ liked: true })}>
-        Like
-      </button>
-    );
-  }
-}
-
-const domContainer = document.querySelector('#like_button_container');
-ReactDOM.render(<LikeButton />, domContainer);
