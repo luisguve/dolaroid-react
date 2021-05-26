@@ -19,10 +19,24 @@ ReactDOM.render(
       <Navbar />
     </div>
     <div className="container">
-      <Sidebar />
-      <Dashboard />
+      <div className="row">
+        <div className="col-4">
+          <Sidebar />
+        </div>
+        <div className="col-8">
+          <Dashboard />
+        </div>
+      </div>
     </div>
-    <Footer />
+    <div className="container-fluid px-0 bg-light">
+    <div className="container">
+      <div className="row">
+          <div className="col">
+            <Footer />
+          </div>
+        </div>
+      </div>
+    </div>
   </Provider>, domContainer
 );
 

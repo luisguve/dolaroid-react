@@ -16,6 +16,10 @@ module.exports = {
         type: "asset/resource"
       },
       {
+        test: /\.txt$/,
+        type: "asset/source"
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ["babel-loader"]

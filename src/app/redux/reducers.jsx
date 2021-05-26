@@ -36,8 +36,13 @@ const contacts = (state = {}, action) => {
     return newState;
 
     case GET_CONTACT:
+    if (action.idx < 0) {
+      newState.currentContact = null;
+      return newState;
+    }
     // Retrieve the info of contact at the given idx.
     let info = state.contacts[action.idx];
+    info.idx = action.idx;
     newState.currentContact = info;
     return newState;
 

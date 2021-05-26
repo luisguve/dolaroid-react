@@ -1,27 +1,44 @@
-import React from "react";
+import { search } from "../../assets/icons";
+import React, { useState } from "react";
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { searchContact } from "../redux/actions";
+import Contact from "./contact";
 
 const Dashboard = props => {
   const dispatch = useDispatch();
-  const handleFile = e => {
-    let input = event.target;
+  const contacts = useSelector(state => state.contactsToList);
 
-    let reader = new FileReader();
-    reader.onload = () => {
-      let data = reader.result;
-      let contacts = vcf.parse(data);
-      dispatch({
-        type: actions.LOAD_CONTACTS,
-        contacts: contacts
-      });
-    };
-    reader.readAsText(input.files[0]);
+  let contactsToList;
+  if (contacts != null){
+    contactsToList = contacts.map((vCard, idx) => {
+      return <Contact key={idx} idx={idx} vCard={vCard} />
+    });
+  }
+
+  const handleChangeSearch = e => {
+    const query = e.target.value;
+    if (query) {
+      dispatch(searchContact(query));
+    }
   };
+
   return (
     <div>
-      <main>Contacts</main>
-      <input type='file' accept='text/plain' onChange={handleFile} />
+      <main className="my-1">
+        <div className="d-flex align-items-center">
+          <input
+            className="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            onChange={handleChangeSearch}
+          />
+        </div>
+        <div className="bg-light d-flex flex-wrap row">
+          {contactsToList}
+        </div>
+      </main>
     </div>
   );
 };

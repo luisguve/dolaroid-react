@@ -4,7 +4,7 @@ import { useState } from "react";
 // Redux
 import { useDispatch } from "react-redux";
 import * as actions from "../redux/actions";
-// Required package for reading VCF text.
+// Package for reading VCF text.
 import vcf from "vcf";
 
 const Navbar = props => {
