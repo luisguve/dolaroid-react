@@ -28,8 +28,8 @@ const Dashboard = props => {
           <input
             className="form-control me-2"
             type="search"
-            placeholder="Search"
-            aria-label="Search"
+            placeholder="Buscar contacto"
+            aria-label="Buscar contacto"
             onChange={handleChangeSearch}
           />
         </div>

@@ -1,22 +1,26 @@
 import React from "react";
 import { profilePic } from "../../assets/icons";
+// Toast utilities
+import { useToasts } from "react-toast-notifications";
 // Redux
 import { useDispatch } from "react-redux";
 import { getContact, deleteContact } from "../redux/actions";
 
 const Contact = props => {
   const dispatch = useDispatch();
+  const { addToast } = useToasts();
 
   let telf = props.vCard.get("tel")._data;
   if (telf === undefined) {
     telf = props.vCard.get("tel")[1]._data;
   }
+  let name = props.vCard.get("fn")._data;
 
   return (
     <div className="card col-4 p-1">
       <img className="card-img-top" alt="" src={profilePic} />
       <div className="card-body">
-        <h5 className="card-title">{props.vCard.get("fn")._data}</h5>
+        <h5 className="card-title">{name}</h5>
         <p className="card-text">{telf}</p>
         <div className="d-flex">
           <button
@@ -25,7 +29,10 @@ const Contact = props => {
           >Editar</button>
           <button
             className="btn btn-danger w-50"
-            onClick={() => dispatch(deleteContact(props.idx))}
+            onClick={() => {
+              dispatch(deleteContact(props.idx));
+              addToast(name + ' eliminado', { appearance: 'success' });
+            }}
           >Eliminar</button>
         </div>
       </div>

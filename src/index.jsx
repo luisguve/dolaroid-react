@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 // Redux
 import { Provider } from "react-redux";
 import store from "./app/redux/store";
+// Toast utilities
+import { ToastProvider } from "react-toast-notifications";
 // Components
 import Navbar from "./app/components/navbar";
 import Sidebar from "./app/components/sidebar";
@@ -15,28 +17,30 @@ import Footer from "./app/components/footer";
 const domContainer = document.querySelector('#react-app');
 ReactDOM.render(
   <Provider store={store}>
-    <div className="container-fluid px-0 bg-light">
-      <Navbar />
-    </div>
-    <div className="container">
-      <div className="row">
-        <div className="col-4">
-          <Sidebar />
-        </div>
-        <div className="col-8">
-          <Dashboard />
-        </div>
+    <ToastProvider autoDismiss={true} autoDismissTimeout={10000}>
+      <div className="container-fluid px-0 bg-light">
+        <Navbar />
       </div>
-    </div>
-    <div className="container-fluid px-0 bg-light">
-    <div className="container">
-      <div className="row">
-          <div className="col">
-            <Footer />
+      <div className="container">
+        <div className="row">
+          <div className="col-4">
+            <Sidebar />
+          </div>
+          <div className="col-8">
+            <Dashboard />
           </div>
         </div>
       </div>
-    </div>
+      <div className="container-fluid px-0 bg-light">
+      <div className="container">
+        <div className="row">
+            <div className="col">
+              <Footer />
+            </div>
+          </div>
+        </div>
+      </div>
+    </ToastProvider>
   </Provider>, domContainer
 );
 

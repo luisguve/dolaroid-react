@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import vcf from "vcf";
+import { useToasts } from "react-toast-notifications";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { addContact, editContact, getContact } from "../redux/actions";
@@ -7,6 +8,7 @@ import { addContact, editContact, getContact } from "../redux/actions";
 const Sidebar = props => {
   const dispatch = useDispatch();
   const currentContact = useSelector(state => state.currentContact);
+  const { addToast } = useToasts();
 
   let heading = "Nuevo contacto";
   let saveLabel = "Agregar";
@@ -61,6 +63,7 @@ const Sidebar = props => {
       currentContact.set("n", n);
       currentContact.set("tel", input.tel);
       dispatch(editContact(currentContact.idx, currentContact));
+      addToast(fn + ' actualizado', { appearance: 'success' });
       return;
     }
 
@@ -70,6 +73,7 @@ const Sidebar = props => {
     info.set("n", n);
     info.set("tel", input.tel);
     dispatch(addContact(info));
+    addToast('Contacto agregado', { appearance: 'success' });
   }
 
   return (
