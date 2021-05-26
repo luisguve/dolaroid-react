@@ -22,9 +22,11 @@ const contacts = (state = {}, action) => {
   switch(action.type) {
 
     case LOAD_CONTACTS:
+    newContacts = action.contacts
+    .sort((a, b) => a.get("fn")._data.localeCompare(b.get("fn")._data));
     newState = DEFAULT_STATE;
-    newState.contacts = action.contacts;
-    newState.contactsToList = action.contacts;
+    newState.contacts = newContacts;
+    newState.contactsToList = newContacts;
     return newState;
 
     case EDIT_CONTACT:
@@ -55,9 +57,11 @@ const contacts = (state = {}, action) => {
 
     case ADD_CONTACT:
     // Append contact and sort list of contacts.
-    newContacts = state.contacts.concat(action.info);
-    newContacts.sort((a, b) => a.get("fn").compare(b.get("fn")));
+    newContacts = state.contacts
+    .concat(action.info)
+    .sort((a, b) => a.get("fn")._data.localeCompare(b.get("fn")._data));
     newState.contacts = newContacts;
+    newState.contactsToList = newContacts;
     return newState;
 
     case SEARCH_CONTACT:

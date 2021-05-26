@@ -16,7 +16,7 @@ module.exports = {
         type: "asset/resource"
       },
       {
-        test: /\.txt$/,
+        test: /\.vcf$/,
         type: "asset/source"
       },
       {

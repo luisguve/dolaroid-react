@@ -8,8 +8,8 @@ const Contact = props => {
   const dispatch = useDispatch();
 
   let telf = props.vCard.get("tel")._data;
-  if (Array.isArray(telf)) {
-    telf = `${telf[0]}<br />${telf[1]}`;
+  if (telf === undefined) {
+    telf = props.vCard.get("tel")[1]._data;
   }
 
   return (

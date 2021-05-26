@@ -12,43 +12,59 @@ const Sidebar = props => {
     lName: "",
     tel: ""
   };
-  const [fName, setFName] = useState("");
-  const [lName, setLName] = useState("");
-  const [tel, setTel] = useState("");
+  const [input, setInput] = useState(defaultContactInfo);
 
   let currentFName, currentLName, currentTlf;
 
   let heading = "Nuevo contacto";
+  let saveLabel = "Agregar";
+  let discardLabel = "Descartar";
 
   if (currentContact != null) {
     heading = "Editar contacto"
+    saveLabel = "Gurardar cambios";
+    discardLabel = "Descartar cambios";
     let fullName = currentContact.get("n")._data.split(";");
-    currentFName = fullName[1];
-    currentLName = fullName[0];
-    currentTlf = currentContact.get("tel")._data;
+
+    let currentTlf = currentContact.get("tel");
     if (Array.isArray(currentTlf)) {
-      currentTlf = currentTlf[1];
+      currentTlf = currentTlf[1]._data;
+    } else {
+      currentTlf = currentTlf._data;
     }
+
+    setInput({
+      fName: fullName[1],
+      lName: fullName[0],
+      tel: currentTlf
+    });
   }
 
   const resetInputs = () => {
-    setContactInfo(defaultContactInfo);
     dispatch(getContact(-1));
   };
 
   const handleAddNew = () => {
-    if (isNaN(tel)) {
+    if (input.tel == "" || isNaN(input.tel)) {
       alert("Introduce un número de teléfono válido");
       return;
     }
+
+    if (!(input.fName.trim().length) && !(input.lName.trim().length)) {
+      alert("Introduce un nombre");
+      return;
+    }
+
+    let fn = input.fName.trim();
+    if (input.lName.trim() != "") fn += " " + input.lName.trim();
+    const n = `${input.lName.trim()};${input.fName.trim()};;;`;
+
     let info = new vcf();
-    let fn = `${fName.trim()}`;
-    if (lName.trim() != "") fn += ` ${lName.trim()}`;
-    const n = `${lName.trim()};${fName.trim()};;;`;
     info.set("fn", fn);
     info.set("n", n);
-    info.set("tel", tel);
+    info.set("tel", input.tel);
     dispatch(addContact(info));
+    setInput(defaultContactInfo);
   }
 
   return (
@@ -59,9 +75,10 @@ const Sidebar = props => {
       <input
         type="text"
         placeholder="Nombre"
-        value={currentFName ? currentFName : fName}
-        required
-        onChange={e => {currentFName = null; setFName(e.target.value);}}
+        value={input.fName}
+        onChange={e => {
+          setInput(Object.assign({}, input, {fName: e.target.value}));
+        }}
       />
     </label>
     <label className="d-flex flex-column mb-2">
@@ -69,28 +86,31 @@ const Sidebar = props => {
       <input
         type="text"
         placeholder="Apellido"
-        value={currentLName ? currentLName : lName}
-        onChange={e => {currentLName = null; setLName(e.target.value);}}
+        value={input.lName}
+        onChange={e => {
+          setInput(Object.assign({}, input, {lName: e.target.value}));
+        }}
       />
     </label>
     <label className="d-flex flex-column mb-2">
       Teléfono:
       <input
         type="text"
-        placeholder="Nombre"
-        value={currentTlf ? currentTlf : tel}
-        required
-        onChange={e => {currentTlf = null; setTel(e.target.value);}}
+        placeholder="Teléfono"
+        value={input.tel}
+        onChange={e => {
+          setInput(Object.assign({}, input, {tel: e.target.value}));
+        }}
       />
     </label>
     <button
       className="btn btn-primary my-2"
       onClick={handleAddNew}
-    >Agregar</button>
+    >{saveLabel}</button>
     <button
       className="btn btn-secondary"
       onClick={resetInputs}
-    >Descartar</button>
+    >{discardLabel}</button>
   </aside>
   );
 };
