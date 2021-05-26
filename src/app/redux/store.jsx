@@ -8,13 +8,13 @@ const store = createStore(reducer);
 
 let vCards;
 try {
-	vCards = vcf.parse(vcfSample);
+  vCards = vcf.parse(vcfSample);
 } catch(err) {
-	console.log(err);
+  console.log(err);
 }
 
 if (vCards) {
-	store.dispatch(loadContacts(vCards));
+  store.dispatch(loadContacts(vCards));
 }
 
 export default store;

@@ -2,12 +2,13 @@ import * as icons from "../../assets/icons";
 import React from "react";
 import { useState } from "react";
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../redux/actions";
 // Package for reading VCF text.
 import vcf from "vcf";
 
 const Navbar = props => {
+  let contacts = useSelector(state => state.contacts);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const handleFileContents = data => {
@@ -15,12 +16,41 @@ const Navbar = props => {
     dispatch(actions.loadContacts(contacts));
     setShowModal(false);
   };
+  const handleDownload = () => {
+    if (!contacts.length) return;
+
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(contacts.toString()));
+    element.setAttribute('download', "contactos.vcf");
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  };
+  let downloadClass = "icon";
+  if (!contacts.length) {
+    downloadClass += " disabled";
+  }
   return (
     <div className="container">
       <nav className="d-flex justify-content-between py-3">
         <div className="d-flex">
-          <img alt="" className="icon me-3" title="Upload VCF file" src={icons.vcf} onClick={() => setShowModal(true)} />
-          <img alt="" className="icon disabled" title="Download VCF file" src={icons.download} />
+          <img
+            alt=""
+            className="icon me-3"
+            title="Subir al chivo"
+            src={icons.vcf}
+            onClick={() => setShowModal(true)} />
+          <img
+            alt=""
+            title="Descargar al chivo"
+            className={downloadClass}
+            src={icons.download}
+            onClick={handleDownload}
+          />
         </div>
         <div></div>
       </nav>
