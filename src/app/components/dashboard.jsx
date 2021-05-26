@@ -18,9 +18,7 @@ const Dashboard = props => {
 
   const handleChangeSearch = e => {
     const query = e.target.value;
-    if (query) {
-      dispatch(searchContact(query));
-    }
+    dispatch(searchContact(query));
   };
 
   return (
