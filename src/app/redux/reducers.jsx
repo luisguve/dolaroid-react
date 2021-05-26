@@ -14,7 +14,7 @@ const DEFAULT_STATE = {
   contactsToList: []
 };
 
-const contacts = (state = {}, action) => {
+const contacts = (state = DEFAULT_STATE, action) => {
   // Clone state to set it's properties.
   let newState = Object.assign({}, state);
   let newContacts;
@@ -35,6 +35,9 @@ const contacts = (state = {}, action) => {
     // Edit the contact at the given idx.
     newContacts[action.idx] = action.info;
     newState.contacts = newContacts;
+    newState.contactsToList = newContacts;
+    newState.currentContact = null;
+    console.log("contacto actualizado mano");
     return newState;
 
     case GET_CONTACT:
@@ -51,8 +54,10 @@ const contacts = (state = {}, action) => {
     case DELETE_CONTACT:
     // Remove contact at the given idx.
     newContacts = state.contacts.slice(0, action.idx);
-    newContacts.concat(state.contact.slice(action.idx + 1));
+    newContacts.push(...state.contacts.slice(action.idx + 1));
     newState.contacts = newContacts;
+    newState.contactsToList = newContacts;
+    console.log("contacto eliminado mano");
     return newState;
 
     case ADD_CONTACT:
@@ -62,21 +67,31 @@ const contacts = (state = {}, action) => {
     .sort((a, b) => a.get("fn")._data.localeCompare(b.get("fn")._data));
     newState.contacts = newContacts;
     newState.contactsToList = newContacts;
+    console.log("todo fino");
     return newState;
 
     case SEARCH_CONTACT:
+    // Empty query? reset contacts to list.
+    if (!action.query) {
+      newState.contactsToList = state.contacts;
+      return newState;
+    }
     // See if search input is a number
     // - If so, lookup contacts by phone number.
     // - Otherwise, lookup contacts by name
-    let re = new RegExp("^"+action.query+".*");
+    let re = new RegExp("^"+action.query+".*?", "i");
     let cb;
     if (!isNaN(action.query)) {
       cb = info => {
-        return re.test(info.get("cell"));
+        let tel = info.get("tel");
+        if (Array.isArray(tel)) {
+          tel = tel[1];
+        }
+        return re.test(tel._data);
       };
     } else {
       cb = info => {
-        return re.test(info.get("fn"));
+        return re.test(info.get("fn")._data);
       }
     }
     newContacts = state.contacts.filter(cb);
