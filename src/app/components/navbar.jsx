@@ -1,5 +1,6 @@
 import * as icons from "../../assets/icons";
 import React from "react";
+import { useToasts } from "react-toast-notifications";
 import { useState } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -9,12 +10,21 @@ import vcf from "vcf";
 
 const Navbar = props => {
   let contacts = useSelector(state => state.contacts);
+  const { addToast } = useToasts();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const handleFileContents = data => {
-    let contacts = vcf.parse(data);
-    dispatch(actions.loadContacts(contacts));
-    setShowModal(false);
+    let vCard;
+    try {
+      vCard = vcf.parse(data);
+    } catch (err) {
+      console.log("Invalid vcard:", err);
+      addToast('archivo vCard inválido', { appearance: 'error' });
+    }
+    if (vCard) {
+      dispatch(actions.loadContacts(vCard));
+      setShowModal(false);
+    }
   };
   const handleDownload = () => {
     if (!contacts.length) return;
@@ -35,7 +45,7 @@ const Navbar = props => {
     downloadClass += " disabled";
   }
   return (
-    <div className="container">
+    <div className="container" id="nav-container">
       <nav className="d-flex justify-content-between py-3">
         <div className="d-flex">
           <img
@@ -60,13 +70,16 @@ const Navbar = props => {
 };
 
 const Modal = props => {
-  const [ headerText, setHeaderText ] = useState("Drag & Drop to Upload File");
+  const dragText = "Arrastra el archivo aquí";
+  const releaseText = "Suelta el archivo para subirlo";
+  const [ headerText, setHeaderText ] = useState(dragText);
   const [ dragAreaClass, setDragAreaClass ] = useState("drag-area");
+  const { addToast } = useToasts();
 
   const readFile = file => {
     if (file.type !== "text/x-vcard") {
-      alert("This is not a vCard file. Please upload a .VCF file.");
-      setHeaderText("Drag & Drop to Upload File");
+      addToast('Selecciona un archivo .VCF', { appearance: 'error' });
+      setHeaderText(dragText);
       setDragAreaClass("drag-area");
       return;
     }
@@ -84,21 +97,22 @@ const Modal = props => {
       onDragOver={e => {
         e.preventDefault();
         setDragAreaClass("drag-area active");
-        setHeaderText("Release to Upload File");
+        setHeaderText(releaseText);
       }}
       onDragLeave={() => {
         setDragAreaClass("drag-area");
-        setHeaderText("Drag & Drop to Upload File");
+        setHeaderText(dragText);
       }}
       onDrop={e => {
         e.preventDefault();
+        setDragAreaClass("drag-area");
         readFile(e.dataTransfer.files[0]);
       }}
       onClick={e => e.stopPropagation()}>
         <img className="upload" alt="" src={icons.vcf} />
         <header>{headerText}</header>
-        <span>OR</span>
-        <button onClick={() => inputElement.click()}>Browse File</button>
+        <span>O</span>
+        <button onClick={() => inputElement.click()}>Selecciona el archivo</button>
         <input type="file"
           ref={input => inputElement = input } hidden
           onChange={e => {
