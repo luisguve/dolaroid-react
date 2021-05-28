@@ -45,26 +45,28 @@ const Navbar = props => {
     downloadClass += " disabled";
   }
   return (
-    <div className="container" id="nav-container">
-      <nav className="d-flex justify-content-between py-3">
-        <div className="d-flex">
-          <img
-            alt=""
-            className="icon me-3"
-            title="Subir al chivo"
-            src={icons.vcf}
-            onClick={() => setShowModal(true)} />
-          <img
-            alt=""
-            title="Descargar al chivo"
-            className={downloadClass}
-            src={icons.download}
-            onClick={handleDownload}
-          />
-        </div>
-        <div></div>
-      </nav>
-      {showModal && <Modal setFileContents={handleFileContents} hide={() => setShowModal(false)} />}
+    <div className="border-bottom navbar-container d-flex align-items-center">
+      <div className="container">
+        <nav className="d-flex justify-content-between">
+          <div className="d-flex">
+            <img
+              alt=""
+              className="icon me-3"
+              title="Subir al chivo"
+              src={icons.vcf}
+              onClick={() => setShowModal(true)} />
+            <img
+              alt=""
+              title="Descargar al chivo"
+              className={downloadClass}
+              src={icons.download}
+              onClick={handleDownload}
+            />
+          </div>
+          <div></div>
+        </nav>
+        {showModal && <Modal setFileContents={handleFileContents} hide={() => setShowModal(false)} />}
+      </div>
     </div>
   );
 };
@@ -111,7 +113,7 @@ const Modal = props => {
       onClick={e => e.stopPropagation()}>
         <img className="upload" alt="" src={icons.vcf} />
         <header>{headerText}</header>
-        <span>O</span>
+        <span>o...</span>
         <button onClick={() => inputElement.click()}>Selecciona el archivo</button>
         <input type="file"
           ref={input => inputElement = input } hidden

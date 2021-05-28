@@ -20,23 +20,12 @@ ReactDOM.render(
     <ToastProvider autoDismiss={true} autoDismissTimeout={10000}>
       <div className="container-fluid px-0 bg-light">
         <Navbar />
-      </div>
-      <div className="container">
-        <div className="row">
+        <div className="row mx-0">
           <div className="col-4">
             <Sidebar />
           </div>
-          <div className="col-8">
+          <div className="col-8 px-0 border-start dashboard">
             <Dashboard />
-          </div>
-        </div>
-      </div>
-      <div className="container-fluid px-0 bg-light">
-      <div className="container">
-        <div className="row">
-            <div className="col">
-              <Footer />
-            </div>
           </div>
         </div>
       </div>

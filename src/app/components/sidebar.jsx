@@ -4,6 +4,7 @@ import { useToasts } from "react-toast-notifications";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { addContact, editContact, getContact } from "../redux/actions";
+import Footer from "./footer";
 
 const Sidebar = props => {
   const dispatch = useDispatch();
@@ -44,12 +45,12 @@ const Sidebar = props => {
 
   const handleSave = (input) => {
     if (input.tel == "" || isNaN(input.tel)) {
-      alert("Introduce un número de teléfono válido");
+      addToast("Introduce un número de teléfono válido", { appearance: 'info' });
       return;
     }
 
     if (!(input.fName.trim().length) && !(input.lName.trim().length)) {
-      alert("Introduce un nombre");
+      addToast("Introduce un nombre", { appearance: 'info' });
       return;
     }
 
@@ -77,18 +78,21 @@ const Sidebar = props => {
   }
 
   return (
-  <aside className="p-3 bg-light m-1 d-flex flex-column">
-    <Editor
-      fName={currentContactInfo.fName}
-      lName={currentContactInfo.lName}
-      tel={currentContactInfo.tel}
-      heading={heading}
-      handleSave={handleSave}
-      saveLabel={saveLabel}
-      resetInputs={() => {dispatch(getContact(-1))}}
-      discardLabel={discardLabel}
-    />
-  </aside>
+    <div className="h-100 d-flex justify-content-center">
+      <aside className="p-3 pb-0 bg-light m-1 d-flex flex-column justify-content-between">
+        <Editor
+          fName={currentContactInfo.fName}
+          lName={currentContactInfo.lName}
+          tel={currentContactInfo.tel}
+          heading={heading}
+          handleSave={handleSave}
+          saveLabel={saveLabel}
+          resetInputs={() => {dispatch(getContact(-1))}}
+          discardLabel={discardLabel}
+        />
+        <Footer />
+      </aside>
+    </div>
   );
 };
 
@@ -112,7 +116,7 @@ const Editor = props => {
     });
   };
   const resetInputs = () => {
-    props.resetInputs;
+    props.resetInputs();
     setInput({
       fName: "",
       lName: "",
@@ -129,7 +133,7 @@ const Editor = props => {
     setInput(Object.assign({}, input, {tel: e.target.value}))
   };
   return (
-    <React.Fragment>
+    <div>
       <h4 className="text-center">{props.heading}</h4>
       <label className="d-flex flex-column mb-2">
         Nombre:
@@ -166,7 +170,7 @@ const Editor = props => {
         className="btn btn-secondary"
         onClick={resetInputs}
       >{props.discardLabel}</button>
-    </React.Fragment>
+    </div>
   );
 };
 
