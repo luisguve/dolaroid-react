@@ -14,25 +14,6 @@ import Footer from "./app/components/footer";
 
 'use strict';
 
-const getBackground = state => {
-  return state.settings.currentBackground.url;
-};
-
-let style = {
-  background: getBackground(store.getState()),
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat"
-};
-
-store.subscribe(() => {
-  let state = store.getState();
-  let bgUrl = getBackground(state);
-  if (bgUrl != style.background) {
-    style = Object.assign(style, {background: bgUrl});
-  }
-});
-
 const domContainer = document.querySelector('#react-app');
 ReactDOM.render(
   <Provider store={store}>
@@ -43,7 +24,7 @@ ReactDOM.render(
           <div className="col-4">
             <Sidebar />
           </div>
-          <div className="col-8 px-0 border-start dashboard" style={style}>
+          <div className="col-8 px-0 border-start dashboard">
             <Dashboard />
           </div>
         </div>
