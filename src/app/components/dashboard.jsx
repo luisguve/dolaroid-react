@@ -22,22 +22,24 @@ const Dashboard = props => {
   };
 
   return (
-    <div>
-      <main className="my-1">
-        <div className="d-flex align-items-center">
+    <main className="">
+      <div className="d-flex align-items-center search px-4">
+        <span className="ps-2 pe-4 w-100">
           <input
-            className="form-control me-2"
+            className="form-control"
             type="search"
             placeholder="Buscar contacto"
             aria-label="Buscar contacto"
             onChange={handleChangeSearch}
           />
-        </div>
-        <div className="bg-light d-flex flex-wrap row">
+        </span>
+      </div>
+      <div className="results px-4">
+        <div className="contacts-wrapper d-flex flex-wrap row mx-0">
           {contactsToList}
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 };
 
