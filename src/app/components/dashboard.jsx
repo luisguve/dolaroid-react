@@ -1,4 +1,3 @@
-import { search } from "../../assets/icons";
 import React, { useState } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -9,14 +8,41 @@ const Dashboard = props => {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contactsToList);
 
-  let contactsToList;
-  if (contacts != null){
-    contactsToList = contacts.map((vCard, idx) => {
-      return <Contact key={idx} idx={idx} vCard={vCard} />
-    });
+  let results;
+  if (contacts != null) {
+    if (!contacts.length) {
+      results = (
+        <div className="d-flex h-25 w-100 justify-content-center align-items-center">
+          <div className="p-3 no-contacts">
+            <h1 className="fs-2">No se encontraron contactos</h1>
+          </div>
+        </div>
+      );
+    } else {
+      let contactsToList = contacts.map((vCard, idx) => {
+        return <Contact key={idx} idx={idx} vCard={vCard} />
+      });
+      results = (
+        <div className="d-flex flex-wrap row mx-0">
+          {contactsToList}
+        </div>
+      )
+    }
+  } else {
+    results = (
+      <div className="d-flex h-25 w-100 justify-content-center align-items-center">
+        <div className="p-3 no-contacts">
+          <h1 className="fs-2">Carga un archivo vCard o crea contactos</h1>
+          <p className="text-center fw-bold fs-6">Tus contactos aparecerán aquí</p>
+        </div>
+      </div>
+    );
   }
 
   const handleChangeSearch = e => {
+    if (contacts == null) {
+      return;
+    }
     const query = e.target.value;
     dispatch(searchContact(query));
   };
@@ -35,9 +61,7 @@ const Dashboard = props => {
         </span>
       </div>
       <div className="results px-4">
-        <div className="contacts-wrapper d-flex flex-wrap row mx-0">
-          {contactsToList}
-        </div>
+        {results}
       </div>
     </main>
   );
