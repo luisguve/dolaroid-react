@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  profilePic2 as profilePic,
-  edit,
-  trash
-} from "../../assets/icons";
+import { icons } from "../../assets";
 // Toast utilities
 import { useToasts } from "react-toast-notifications";
 // Redux
@@ -23,21 +19,21 @@ const Contact = props => {
   return (
     <div className="p-2 col-3">
       <div className="card p-1">
-        <img className="card-img-top" alt="" src={profilePic} />
+        <img className="card-img-top" alt="" src={icons.profilePic} />
         <div className="card-body">
           <h6 className="card-title">{name}</h6>
           <p className="card-text">{telf}</p>
           <div className="d-flex justify-content-around">
             <button className="w-25 bg-transparent border-0 p-1"
             onClick={() => dispatch(getContact(props.idx))}>
-              <img className="img-fluid" src={edit} />
+              <img className="img-fluid" src={icons.edit} />
             </button>
             <button className="w-25 bg-transparent border-0 p-1"
               onClick={() => {
                 dispatch(deleteContact(props.idx));
                 addToast(name + ' eliminado', { appearance: 'success' });
               }}>
-              <img className="img-fluid" src={trash} />
+              <img className="img-fluid" src={icons.trash} />
             </button>
           </div>
         </div>
