@@ -1,6 +1,7 @@
 import "./main.scss";
 import React from "react";
 import ReactDOM from "react-dom";
+import { imgs } from "./assets";
 // Redux
 import { Provider } from "react-redux";
 import store from "./app/redux/store";
@@ -14,6 +15,13 @@ import Footer from "./app/components/footer";
 
 'use strict';
 
+const style = {
+  background: "url("+imgs.rachelHurdWood+")",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat"
+};
+
 const domContainer = document.querySelector('#react-app');
 ReactDOM.render(
   <Provider store={store}>
@@ -24,7 +32,7 @@ ReactDOM.render(
           <div className="col-4">
             <Sidebar />
           </div>
-          <div className="col-8 px-0 border-start dashboard">
+          <div className="col-8 px-0 border-start dashboard" style={style}>
             <Dashboard />
           </div>
         </div>
