@@ -75,15 +75,19 @@ body {
 }
 
 .dashboard {
-  background: $secondary;
   .search {
     height: 10vh;
   }
   .results {
     height: 77vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     .card {
       border-radius: 15px;
+    }
+    .no-contacts {
+      background: rgba(79,98,125,0.55);
+      border-radius: 15px;
+      color: aliceblue;
     }
   }
 }
