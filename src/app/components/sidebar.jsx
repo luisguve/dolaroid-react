@@ -79,7 +79,7 @@ const Sidebar = props => {
 
   return (
     <div className="h-100 d-flex justify-content-center">
-      <aside className="p-3 pb-0 bg-light m-1 d-flex flex-column justify-content-between">
+      <aside className="p-3 pb-0 bg-transparent m-1 d-flex flex-column justify-content-between">
         <Editor
           fName={currentContactInfo.fName}
           lName={currentContactInfo.lName}
@@ -162,14 +162,16 @@ const Editor = props => {
           onChange={handleChangeTel}
         />
       </label>
-      <button
-        className="btn btn-primary my-2"
-        onClick={handleSave}
-      >{props.saveLabel}</button>
-      <button
-        className="btn btn-secondary"
-        onClick={resetInputs}
-      >{props.discardLabel}</button>
+      <div className="d-flex my-2">
+        <span className="w-50 pe-1"><button
+          className="btn btn-primary w-100"
+          onClick={handleSave}
+        >{props.saveLabel}</button></span>
+        <span className="w-50 ps-1"><button
+          className="btn btn-secondary w-100"
+          onClick={resetInputs}
+        >{props.discardLabel}</button></span>
+      </div>
     </div>
   );
 };
