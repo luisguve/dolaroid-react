@@ -1,5 +1,6 @@
 $primary: teal;
 $danger: purple;
+$secondary: #161c2b;
 @import "~bootstrap/scss/bootstrap";
 
 body {
@@ -9,7 +10,7 @@ body {
 }
 
 .icon {
-  max-width: 60px;
+  max-width: 50px;
   cursor: pointer;
 }
 .icon.disabled {
@@ -41,28 +42,49 @@ body {
 .drag-area.active{
   border: 2px solid #fff;
 }
-.drag-area img.upload {
-  width: 120px;
+.drag-area {
+  img.upload {
+    width: 120px;
+  }
+  header{
+    font-size: 30px;
+    font-weight: 500;
+    color: #fff;
+  }
+  span{
+    font-size: 25px;
+    font-weight: 500;
+    color: #fff;
+    margin: 10px 0 15px 0;
+  }
+  button{
+    padding: 10px 25px;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background: #fff;
+    color: $primary;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 }
-.drag-area header{
-  font-size: 30px;
-  font-weight: 500;
-  color: #fff;
+
+.navbar-container {
+  height: 12vh;
 }
-.drag-area span{
-  font-size: 25px;
-  font-weight: 500;
-  color: #fff;
-  margin: 10px 0 15px 0;
+
+.dashboard {
+  background: $secondary;
+  .search {
+    height: 10vh;
+  }
+  .results {
+    height: 77vh;
+    overflow-y: scroll;
+    .card {
+      border-radius: 15px;
+    }
+  }
 }
-.drag-area button{
-  padding: 10px 25px;
-  font-size: 20px;
-  font-weight: 500;
-  border: none;
-  outline: none;
-  background: #fff;
-  color: $primary;
-  border-radius: 5px;
-  cursor: pointer;
-}
+
