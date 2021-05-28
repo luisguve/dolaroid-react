@@ -10,6 +10,8 @@ const DELETE_CONTACT = "DELETE_CONTACT";
 const ADD_CONTACT = "ADD_CONTACT";
 // Search contact.
 const SEARCH_CONTACT = "SEARCH_CONTACT";
+// Clean list of contacts
+const CLEAN_CONTACTS = "CLEAN_CONTACTS";
 
 const loadContacts = contacts => {
   return {
@@ -54,6 +56,12 @@ const searchContact = query => {
   };
 };
 
+const cleanContacts = query => {
+  return {
+    type: CLEAN_CONTACTS
+  };
+};
+
 export {
   LOAD_CONTACTS,
   loadContacts,
@@ -66,5 +74,7 @@ export {
   ADD_CONTACT,
   addContact,
   SEARCH_CONTACT,
-  searchContact
+  searchContact,
+  CLEAN_CONTACTS,
+  cleanContacts
 };

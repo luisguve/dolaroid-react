@@ -5,13 +5,14 @@ import {
   GET_CONTACT,
   DELETE_CONTACT,
   ADD_CONTACT,
-  SEARCH_CONTACT
+  SEARCH_CONTACT,
+  CLEAN_CONTACTS
 } from "./actions";
 
 const DEFAULT_STATE = {
   contacts: [],
   currentContact: null,
-  contactsToList: []
+  contactsToList: null
 };
 
 const contacts = (state = DEFAULT_STATE, action) => {
@@ -37,11 +38,11 @@ const contacts = (state = DEFAULT_STATE, action) => {
     newState.contacts = newContacts;
     newState.contactsToList = newContacts;
     newState.currentContact = null;
-    console.log("contacto actualizado mano");
+    console.log("contacto actualizado. se ve mejor asi");
     return newState;
 
     case GET_CONTACT:
-    if (action.idx < 0) {
+    if ((action.idx < 0) || (action.idx >= state.contacts.length)) {
       newState.currentContact = null;
       return newState;
     }
@@ -96,6 +97,12 @@ const contacts = (state = DEFAULT_STATE, action) => {
     }
     newContacts = state.contacts.filter(cb);
     newState.contactsToList = newContacts;
+    return newState;
+
+    case CLEAN_CONTACTS:
+    newState.contacts = [];
+    newState.currentContact = null;
+    newState.contactsToList = null;
     return newState;
 
     default:

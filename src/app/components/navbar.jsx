@@ -1,4 +1,4 @@
-import * as icons from "../../assets/icons";
+import { icons } from "../../assets";
 import React from "react";
 import { useToasts } from "react-toast-notifications";
 import { useState } from "react";
@@ -40,9 +40,17 @@ const Navbar = props => {
 
     document.body.removeChild(element);
   };
-  let downloadClass = "icon";
+  const handleClean = () => {
+    if (!contacts.length) return;
+
+    dispatch(actions.cleanContacts());
+    addToast("Lista de contactos limpiada", { appearance: "success" });
+  };
+  let downloadClass = "icon me-5";
+  let cleanClass = "icon me-5";
   if (!contacts.length) {
     downloadClass += " disabled";
+    cleanClass += " disabled";
   }
   return (
     <div className="border-bottom navbar-container d-flex align-items-center">
@@ -51,7 +59,7 @@ const Navbar = props => {
           <div className="d-flex">
             <img
               alt=""
-              className="icon me-3"
+              className="icon me-5"
               title="Subir al chivo"
               src={icons.vcf}
               onClick={() => setShowModal(true)} />
@@ -61,6 +69,13 @@ const Navbar = props => {
               className={downloadClass}
               src={icons.download}
               onClick={handleDownload}
+            />
+            <img
+              alt=""
+              title="Limpiar lista de contactos"
+              className={cleanClass}
+              src={icons.clean}
+              onClick={handleClean}
             />
           </div>
           <div></div>
