@@ -9,37 +9,17 @@ import { imgs } from "../../assets";
 const Dashboard = props => {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.contactsToList);
+  const settings = useSelector(state => state.settings);
 
-  let results;
-  if (contacts != null) {
-    if (!contacts.length) {
-      results = (
-        <div className="d-flex h-25 w-100 justify-content-center align-items-center">
-          <div className="p-3 no-contacts">
-            <h1 className="fs-2">No se encontraron contactos</h1>
-          </div>
-        </div>
-      );
-    } else {
-      let contactsToList = contacts.map((vCard, idx) => {
-        return <Contact key={idx} idx={idx} vCard={vCard} />
-      });
-      results = (
-        <div className="d-flex flex-wrap row mx-0">
-          {contactsToList}
-        </div>
-      )
-    }
-  } else {
-    results = (
-      <div className="d-flex h-25 w-100 justify-content-center align-items-center">
-        <div className="p-3 no-contacts">
-          <h1 className="fs-2">Carga un archivo vCard o crea contactos</h1>
-          <p className="text-center fw-bold fs-6">Tus contactos aparecerán aquí</p>
-        </div>
-      </div>
-    );
-  }
+  const getBackground = () => {
+    let defaultBg = "linear-gradient(141deg, #fff3f3 0%, #e1faff 100%)";
+    if (settings.listBackgrounds) return defaultBg;
+    return settings.currentBackground.url;
+  };
+
+  let style = {
+    background: `${getBackground()} center center / cover no-repeat`
+  };
 
   const handleChangeSearch = e => {
     if (contacts == null) {
@@ -50,7 +30,7 @@ const Dashboard = props => {
   };
 
   return (
-    <main>
+    <main style={style}>
       <div className="d-flex align-items-center search px-4">
         <span className="ps-2 pe-4 w-100">
           <input
@@ -63,10 +43,43 @@ const Dashboard = props => {
         </span>
       </div>
       <div className="results px-4">
-        {results}
+        <Results contacts={contacts} />
       </div>
     </main>
   );
+};
+
+const Results = props => {
+  let results = (
+    <div className="d-flex h-25 w-100 justify-content-center align-items-center">
+      <div className="p-3 no-contacts">
+        <h1 className="fs-2">Carga un archivo vCard o crea contactos</h1>
+        <p className="text-center fw-bold fs-6">Tus contactos aparecerán aquí</p>
+      </div>
+    </div>
+  );
+
+  if (props.contacts != null) {
+    if (!props.contacts.length) {
+      results = (
+        <div className="d-flex h-25 w-100 justify-content-center align-items-center">
+          <div className="p-3 no-contacts">
+            <h1 className="fs-2">No se encontraron contactos</h1>
+          </div>
+        </div>
+      );
+    } else {
+      let contactsToList = props.contacts.map((vCard, idx) => {
+        return <Contact key={idx} idx={idx} vCard={vCard} />
+      });
+      results = (
+        <div className="d-flex flex-wrap row mx-0">
+          {contactsToList}
+        </div>
+      )
+    }
+  }
+  return (<React.Fragment>{results}</React.Fragment>);
 };
 
 export default Dashboard;
