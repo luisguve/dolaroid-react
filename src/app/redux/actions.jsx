@@ -12,6 +12,10 @@ const ADD_CONTACT = "ADD_CONTACT";
 const SEARCH_CONTACT = "SEARCH_CONTACT";
 // Clean list of contacts
 const CLEAN_CONTACTS = "CLEAN_CONTACTS";
+// Show background settings
+const LIST_BACKGROUNDS = "LIST_BACKGROUNDS";
+// Update background
+const CHANGE_BACKGROUND = "CHANGE_BACKGROUND";
 
 const loadContacts = contacts => {
   return {
@@ -19,7 +23,6 @@ const loadContacts = contacts => {
     contacts: contacts
   };
 };
-
 const editContact = (idx, info) => {
   return {
     type: EDIT_CONTACT,
@@ -27,38 +30,43 @@ const editContact = (idx, info) => {
     info: info
   };
 };
-
 const getContact = idx => {
   return {
     type: GET_CONTACT,
     idx: idx
   };
 };
-
 const deleteContact = idx => {
   return {
     type: DELETE_CONTACT,
     idx: idx
   };
 };
-
 const addContact = info => {
   return {
     type: ADD_CONTACT,
     info: info
   };
 };
-
 const searchContact = query => {
   return {
     type: SEARCH_CONTACT,
     query: query
   };
 };
-
-const cleanContacts = query => {
+const cleanContacts = () => {
   return {
     type: CLEAN_CONTACTS
+  };
+};
+const listBackgrounds = () => {
+  return {
+    type: LIST_BACKGROUNDS
+  };
+};
+const changeBackground = () => {
+  return {
+    type: CHANGE_BACKGROUND
   };
 };
 
@@ -76,5 +84,9 @@ export {
   SEARCH_CONTACT,
   searchContact,
   CLEAN_CONTACTS,
-  cleanContacts
+  cleanContacts,
+  LIST_BACKGROUNDS,
+  listBackgrounds,
+  CHANGE_BACKGROUND,
+  changeBackground
 };

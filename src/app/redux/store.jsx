@@ -1,10 +1,10 @@
-import { contacts as reducer } from './reducers';
-import { createStore } from "redux";
+import * as reducers from './reducers';
+import { createStore, combineReducers } from "redux";
 import { loadContacts } from "./actions";
 import vcf from "vcf";
 import vcfSample from "./vcfSample.vcf";
 
-const store = createStore(reducer);
+const store = createStore(combineReducers(reducers));
 
 let vCards;
 try {

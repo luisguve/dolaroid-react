@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchContact } from "../redux/actions";
 import Contact from "./contact";
+// Background images
+import { imgs } from "../../assets";
 
 const Dashboard = props => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contactsToList);
+  const contacts = useSelector(state => state.contacts.contactsToList);
 
   let results;
   if (contacts != null) {
@@ -48,7 +50,7 @@ const Dashboard = props => {
   };
 
   return (
-    <main className="">
+    <main>
       <div className="d-flex align-items-center search px-4">
         <span className="ps-2 pe-4 w-100">
           <input

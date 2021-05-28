@@ -6,8 +6,11 @@ import {
   DELETE_CONTACT,
   ADD_CONTACT,
   SEARCH_CONTACT,
-  CLEAN_CONTACTS
+  CLEAN_CONTACTS,
+  LIST_BACKGROUNDS,
+  CHANGE_BACKGROUND
 } from "./actions";
+import { imgs } from "../../assets";
 
 const DEFAULT_STATE = {
   contacts: [],
@@ -110,4 +113,28 @@ const contacts = (state = DEFAULT_STATE, action) => {
   }
 };
 
-export { contacts };
+const defaultSettings = {
+  listBackgrounds: false,
+  currentBackground: {
+    url: `url(${imgs["rachel"].url})`,
+    id: "rachel"
+  }
+};
+
+const settings = (state = defaultSettings, action) => {
+  let newState = Object.assign({}, state);
+  switch (action.type) {
+    case LIST_BACKGROUNDS:
+    newState.listBackgrounds = true;
+    return newState;
+
+    case CHANGE_BACKGROUND:
+    newState.currentBackground = action.background;
+    return newState;
+
+    default:
+    return state;
+  }
+};
+
+export { contacts, settings };

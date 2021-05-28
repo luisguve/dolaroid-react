@@ -8,7 +8,7 @@ import Footer from "./footer";
 
 const Sidebar = props => {
   const dispatch = useDispatch();
-  const currentContact = useSelector(state => state.currentContact);
+  const currentContact = useSelector(state => state.contacts.currentContact);
   const { addToast } = useToasts();
 
   let heading = "Nuevo contacto";
@@ -25,8 +25,8 @@ const Sidebar = props => {
 
   if (currentContact != null) {
     heading = "Editar contacto"
-    saveLabel = "Guardar cambios";
-    discardLabel = "Descartar cambios";
+    saveLabel = "Guardar";
+    discardLabel = "Cancelar";
     let fullName = currentContact.get("n")._data.split(";");
 
     let currentTlf = currentContact.get("tel");
