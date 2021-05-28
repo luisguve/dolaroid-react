@@ -1,7 +1,6 @@
 import "./main.scss";
 import React from "react";
 import ReactDOM from "react-dom";
-import { imgs } from "./assets";
 // Redux
 import { Provider } from "react-redux";
 import store from "./app/redux/store";
@@ -15,12 +14,24 @@ import Footer from "./app/components/footer";
 
 'use strict';
 
-const style = {
-  background: "url("+imgs.rachelHurdWood+")",
+const getBackground = state => {
+  return state.settings.currentBackground.url;
+};
+
+let style = {
+  background: getBackground(store.getState()),
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat"
 };
+
+store.subscribe(() => {
+  let state = store.getState();
+  let bgUrl = getBackground(state);
+  if (bgUrl != style.background) {
+    style = Object.assign(style, {background: bgUrl});
+  }
+});
 
 const domContainer = document.querySelector('#react-app');
 ReactDOM.render(
