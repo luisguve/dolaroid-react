@@ -9,7 +9,7 @@ import * as actions from "../redux/actions";
 import vcf from "vcf";
 
 const Navbar = props => {
-  let contacts = useSelector(state => state.contacts);
+  let contacts = useSelector(state => state.contacts.contacts);
   const { addToast } = useToasts();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
@@ -46,6 +46,9 @@ const Navbar = props => {
     dispatch(actions.cleanContacts());
     addToast("Lista de contactos limpiada", { appearance: "success" });
   };
+  const handleSettings = () => {
+    dispatch(actions.listBackgrounds());
+  };
   let downloadClass = "icon me-5";
   let cleanClass = "icon me-5";
   if (!contacts.length) {
@@ -77,6 +80,12 @@ const Navbar = props => {
               src={icons.clean}
               onClick={handleClean}
             />
+            <button
+             className="border-0 bg-transparent p-0"
+             onClick={handleSettings}>
+              <img alt="" className="icon me-2" src={icons.settings} />
+              Cambiar fondo
+            </button>
           </div>
           <div></div>
         </nav>
