@@ -7,8 +7,6 @@ import Contact from "./contact";
 import { imgs } from "../../assets";
 
 const Dashboard = props => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.contactsToList);
   const settings = useSelector(state => state.settings);
 
   const getBackground = () => {
@@ -21,6 +19,48 @@ const Dashboard = props => {
     background: `${getBackground()} center center / cover no-repeat`
   };
 
+  return (
+    <main style={style}>
+      {
+        settings.listBackgrounds ?
+        <BackgroundChooser /> : <Contacts />
+      }
+    </main>
+  );
+};
+
+const BackgroundChooser = props => {
+  const settings = useSelector(state => state.settings);
+  let options = [];
+  for (const id in imgs) {
+    let active = "";
+    if (settings.currentBackground.id == id) {
+      active = "active";
+    }
+    options.push(
+      <div className="col-4" key={id}>
+        <img className="img-fluid sample" src={imgs[id].url} alt={imgs[id].name} />
+        <p className="text-center"><em>{imgs[id].name}</em></p>
+        {active && <p>Imagen actual</p>}
+      </div>
+    );
+  }
+  return (
+    <div className="background-chooser">
+      <div className="d-flex flex-wrap row mx-0">
+        <h1 className="text-secondary fs-4 fw-bold text-center my-3">
+          Selecciona la imagen y presiona el botón de aceptar
+        </h1>
+        {options}
+      </div>
+    </div>
+  );
+};
+
+const Contacts = props => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.contactsToList);
+
   const handleChangeSearch = e => {
     if (contacts == null) {
       return;
@@ -30,7 +70,8 @@ const Dashboard = props => {
   };
 
   return (
-    <main style={style}>
+    <React.Fragment>
+      {/* Search bar */}
       <div className="d-flex align-items-center search px-4">
         <span className="ps-2 pe-4 w-100">
           <input
@@ -42,10 +83,11 @@ const Dashboard = props => {
           />
         </span>
       </div>
+      {/* Contacts to list */}
       <div className="results px-4">
         <Results contacts={contacts} />
       </div>
-    </main>
+    </React.Fragment>
   );
 };
 
