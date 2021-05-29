@@ -90,5 +90,12 @@ body {
       color: aliceblue;
     }
   }
+  .background-chooser {
+    height: 87vh;
+    .sample {
+      height: 280px;
+      object-fit: cover;
+    }
+  }
 }
 
