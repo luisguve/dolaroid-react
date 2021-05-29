@@ -114,7 +114,7 @@ const contacts = (state = DEFAULT_STATE, action) => {
 };
 
 const defaultSettings = {
-  listBackgrounds: false,
+  listBackgrounds: true,
   currentBackground: {
     url: `url(${imgs["rachel"].url})`,
     id: "rachel"
@@ -125,7 +125,7 @@ const settings = (state = defaultSettings, action) => {
   let newState = Object.assign({}, state);
   switch (action.type) {
     case LIST_BACKGROUNDS:
-    newState.listBackgrounds = true;
+    newState.listBackgrounds = !state.listBackgrounds;
     return newState;
 
     case CHANGE_BACKGROUND:
