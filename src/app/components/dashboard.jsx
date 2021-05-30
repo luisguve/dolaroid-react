@@ -1,57 +1,132 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { searchContact } from "../redux/actions";
+import { searchContact, listBackgrounds, changeBackground } from "../redux/actions";
 import Contact from "./contact";
 // Background images
 import { imgs } from "../../assets";
 
 const Dashboard = props => {
   const settings = useSelector(state => state.settings);
+  const dispatch = useDispatch();
 
   const getBackground = () => {
-    let defaultBg = "linear-gradient(141deg, #fff3f3 0%, #e1faff 100%)";
-    if (settings.listBackgrounds) return defaultBg;
-    return settings.currentBackground.url;
+    const defaultBg = `linear-gradient(141deg, #fff3f3 0%, #e1faff 100%)`;
+    const defaultBgConfig = " center center / cover no-repeat";
+    if (settings.listBackgrounds) return defaultBg.concat(defaultBgConfig);
+    return settings.currentBackground.url.concat(defaultBgConfig);
   };
 
-  let style = {
-    background: `${getBackground()} center center / cover no-repeat`
+  const defaultConfig = () => (
+    {
+      style: {
+        background: getBackground()
+      },
+      inPreview: false
+    }
+  );
+
+  const [config, setConfig] = useState(defaultConfig());
+
+  useEffect(() => {
+    setConfig(defaultConfig());
+  }, [settings]);
+
+  // Preview background.
+  // Do not change background in the store when previewing it.
+  // Instead, change it locally.
+  const switchPreview = bg => {
+    if (config.inPreview) {
+      setConfig(defaultConfig());
+      return;
+    }
+    setConfig({
+      style: {
+        background: `${bg} center center / cover no-repeat`
+      },
+      inPreview: true
+    });
+  };
+  const cancel = () => {
+    dispatch(listBackgrounds());
+  };
+  const updateBackground = bg => {
+    dispatch(changeBackground({
+      url: `url(${bg.url})`,
+      id: bg.id
+    }));
   };
 
   return (
-    <main style={style}>
+    <main style={config.style}>
       {
         settings.listBackgrounds ?
-        <BackgroundChooser /> : <Contacts />
+        <BackgroundChooser
+          switchPreview={switchPreview}
+          inPreview={config.inPreview}
+          cancel={cancel}
+          updateBackground={updateBackground}
+        />
+        :
+        <Contacts />
       }
     </main>
   );
 };
 
 const BackgroundChooser = props => {
-  const settings = useSelector(state => state.settings);
+  const currBgId = useSelector(state => state.settings.currentBackground.id);
+  const [bgId, setBgId] = useState(currBgId);
+  const previewBackground = () => {
+    props.switchPreview("url("+imgs[bgId].url+")");
+  };
+  const cancel = () => {
+    props.cancel()
+  };
+  const accept = () => {
+    props.updateBackground({
+      url: imgs[bgId].url,
+      id: bgId
+    });
+  };
   let options = [];
   for (const id in imgs) {
-    let active = "";
-    if (settings.currentBackground.id == id) {
-      active = "active";
+    let checked = "";
+    if (bgId == id) {
+      checked = "checked";
     }
     options.push(
-      <div className="col-4" key={id}>
-        <img className="img-fluid sample" src={imgs[id].url} alt={imgs[id].name} />
-        <p className="text-center"><em>{imgs[id].name}</em></p>
-        {active && <p>Imagen actual</p>}
-      </div>
+      <label className="col-4 px-0" key={id}>
+        <input type="radio" checked={checked} value={id} name="background"
+         onChange={e => setBgId(e.target.value)}/>
+        <div className="content p-2">
+          <img className="img-fluid sample" src={imgs[id].url} alt={imgs[id].name} />
+          <p className="text-center m-0 pt-1"><em>{imgs[id].name}</em></p>
+        </div>
+      </label>
     );
   }
   return (
-    <div className="background-chooser">
-      <div className="d-flex flex-wrap row mx-0">
-        <h1 className="text-secondary fs-4 fw-bold text-center my-3">
-          Selecciona la imagen y presiona el botón de aceptar
+    <div className="background-chooser px-3 d-flex flex-column justify-content-end">
+      {
+      !props.inPreview &&
+      <React.Fragment>
+        <h1 className="col-12 text-secondary fs-4 fw-bold text-center my-3">
+          Cambiar fondo de pantalla
         </h1>
-        {options}
+        <div className="row mx-0 options">{options}</div>
+      </React.Fragment>
+      }
+      <div className="py-2 d-flex justify-content-center">
+        <button className="mx-2 btn btn-info" onClick={previewBackground}>
+          {!props.inPreview ? "Vista previa" : "Volver"}
+        </button>
+        <button className="mx-2 btn btn-secondary" onClick={cancel}>
+          Cancelar
+        </button>
+        <button className="mx-2 btn btn-primary" onClick={accept}>
+          Aceptar
+        </button>
       </div>
     </div>
   );
