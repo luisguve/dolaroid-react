@@ -3,8 +3,9 @@ import { createStore, combineReducers } from "redux";
 import { loadContacts } from "./actions";
 import vcf from "vcf";
 import vcfSample from "./vcfSample.vcf";
+import { devToolsEnhancer } from 'redux-devtools-extension';
 
-const store = createStore(combineReducers(reducers));
+const store = createStore(combineReducers(reducers), devToolsEnhancer());
 
 let vCards;
 try {

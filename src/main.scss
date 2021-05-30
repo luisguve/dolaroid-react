@@ -96,6 +96,27 @@ body {
       height: 280px;
       object-fit: cover;
     }
+    .options {
+      overflow-y: auto;
+    }
+    input[type="radio"] {
+      display: none;
+    }
+    input[type="radio"] ~ .content:hover {
+      cursor: pointer;
+    }
+    input[type="radio"]:checked ~ .content {
+      background: $secondary;
+      color: #c5c5c5;
+    }
+    input[type="radio"]:checked ~ .content {
+      background: $secondary;
+      color: #c5c5c5;
+    }
+    input[type="radio"]:not(:checked) ~ .content:hover {
+      background: #333a4c;
+      color: #c5c5c5;
+    }
   }
 }
 
