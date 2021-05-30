@@ -64,9 +64,10 @@ const listBackgrounds = () => {
     type: LIST_BACKGROUNDS
   };
 };
-const changeBackground = () => {
+const changeBackground = bg => {
   return {
-    type: CHANGE_BACKGROUND
+    type: CHANGE_BACKGROUND,
+    background: bg
   };
 };
 
