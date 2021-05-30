@@ -12,6 +12,9 @@ import settings from "./icons/settings.png";
 import rachelHurdWood from "./imgs/rachel2.jpg";
 import priyaPrakash from "./imgs/priya-prakash.jpg";
 import daftPunk from "./imgs/daftpunk.jpg";
+import basicBg1 from "./imgs/cool-background.png";
+import basicBg2 from "./imgs/cool-background-1.png";
+import basicBg3 from "./imgs/cool-background-2.png";
 
 const icons = {
   vcf,
@@ -36,6 +39,18 @@ const imgs = {
   "daftpunk": {
     url: daftPunk,
     name: "Daft Punk"
+  },
+  "basicBg1": {
+    url: basicBg1,
+    name: "Trianglify"
+  },
+  "basicBg2": {
+    url: basicBg2,
+    name: "Particles"
+  },
+  "basicBg3": {
+    url: basicBg3,
+    name: "Unsplash"
   }
 };
 
