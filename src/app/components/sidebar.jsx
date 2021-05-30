@@ -16,6 +16,7 @@ const Sidebar = props => {
   let discardLabel = "Descartar";
 
   const defaultContactInfo = {
+    photo: "",
     fName: "",
     lName: "",
     tel: ""
@@ -36,7 +37,12 @@ const Sidebar = props => {
       currentTlf = currentTlf._data;
     }
 
+    let photo = currentContact.get("photo");
+
+    console.log(photo);
+
     currentContactInfo = {
+      photo: photo,
       fName: fullName[1],
       lName: fullName[0],
       tel: currentTlf
@@ -71,6 +77,7 @@ const Sidebar = props => {
     // Create new contact.
     let info = new vcf();
     info.set("fn", fn);
+    info.set("photo", input.photo);
     info.set("n", n);
     info.set("tel", input.tel);
     dispatch(addContact(info));
@@ -81,9 +88,7 @@ const Sidebar = props => {
     <div className="h-100 d-flex justify-content-center">
       <aside className="p-3 pb-0 bg-transparent m-1 d-flex flex-column justify-content-between">
         <Editor
-          fName={currentContactInfo.fName}
-          lName={currentContactInfo.lName}
-          tel={currentContactInfo.tel}
+          {...currentContactInfo}
           heading={heading}
           handleSave={handleSave}
           saveLabel={saveLabel}
@@ -98,6 +103,7 @@ const Sidebar = props => {
 
 const Editor = props => {
   let contact = {
+    photo: props.photo,
     fName: props.fName,
     lName: props.lName,
     tel: props.tel,
@@ -110,6 +116,7 @@ const Editor = props => {
   const handleSave = () => {
     props.handleSave(input);
     setInput({
+      photo: "",
       fName: "",
       lName: "",
       tel: ""
@@ -118,6 +125,7 @@ const Editor = props => {
   const resetInputs = () => {
     props.resetInputs();
     setInput({
+      photo: "",
       fName: "",
       lName: "",
       tel: ""
@@ -126,15 +134,26 @@ const Editor = props => {
   const handleChangeFName = e => {
     setInput(Object.assign({}, input, {fName: e.target.value}));
   };
+  const handleChangePhoto = e => {
+    setInput(Object.assign({}, input, {photo: e.target.value}));
+  }
   const handleChangeLName = e => {
-    setInput(Object.assign({}, input, {lName: e.target.value}))
+    setInput(Object.assign({}, input, {lName: e.target.value}));
   };
   const handleChangeTel = e => {
-    setInput(Object.assign({}, input, {tel: e.target.value}))
+    setInput(Object.assign({}, input, {tel: e.target.value}));
   };
   return (
     <div>
       <h4 className="text-center">{props.heading}</h4>
+      <label className="d-flex flex-column mb-2">
+        Foto:
+        <input
+          type="file"
+          value={input.photo}
+          onChange={handleChangePhoto}
+        />
+      </label>
       <label className="d-flex flex-column mb-2">
         Nombre:
         <input
