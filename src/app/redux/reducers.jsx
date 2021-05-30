@@ -77,7 +77,7 @@ const contacts = (state = DEFAULT_STATE, action) => {
     case SEARCH_CONTACT:
     // Empty query? reset contacts to list.
     if (!action.query) {
-      newState.contactsToList = state.contacts;
+      newState.contactsToList = newState.contacts;
       return newState;
     }
     // See if search input is a number
@@ -114,10 +114,10 @@ const contacts = (state = DEFAULT_STATE, action) => {
 };
 
 const defaultSettings = {
-  listBackgrounds: true,
+  listBackgrounds: false,
   currentBackground: {
-    url: `url(${imgs["rachel"].url})`,
-    id: "rachel"
+    url: `url(${imgs["basicBg1"].url})`,
+    id: "basicBg1"
   }
 };
 
@@ -130,6 +130,7 @@ const settings = (state = defaultSettings, action) => {
 
     case CHANGE_BACKGROUND:
     newState.currentBackground = action.background;
+    newState.listBackgrounds = false;
     return newState;
 
     default:
