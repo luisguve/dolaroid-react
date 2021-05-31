@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useToasts } from "react-toast-notifications";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { searchContact, listBackgrounds, changeBackground } from "../redux/actions";
@@ -9,6 +10,7 @@ import { imgs } from "../../assets";
 const Dashboard = props => {
   const settings = useSelector(state => state.settings);
   const dispatch = useDispatch();
+  const { addToast } = useToasts();
 
   const getBackground = () => {
     const defaultBg = `linear-gradient(141deg, #fff3f3 0%, #e1faff 100%)`;
@@ -55,6 +57,7 @@ const Dashboard = props => {
       url: `url(${bg.url})`,
       id: bg.id
     }));
+    addToast("Fondo de pantalla cambiado", {appearance: "success"});
   };
 
   return (
