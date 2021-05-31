@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import vcf from "vcf";
+import { icons } from "../../assets";
 import { useToasts } from "react-toast-notifications";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +17,7 @@ const Sidebar = props => {
   let discardLabel = "Descartar";
 
   const defaultContactInfo = {
-    photo: "",
+    photo: icons.profilePic2,
     fName: "",
     lName: "",
     tel: ""
@@ -38,8 +39,7 @@ const Sidebar = props => {
     }
 
     let photo = currentContact.get("photo");
-
-    console.log(photo);
+    if (!photo) photo = icons.profilePic2;
 
     currentContactInfo = {
       photo: photo,
@@ -109,6 +109,10 @@ const Editor = props => {
     tel: props.tel,
   };
   const [input, setInput] = useState(contact);
+  const dragText = "Arrastra una foto aquí";
+  const releaseText = "Suelta la foto";
+  const [photoText, setPhotoText] = useState(dragText);
+  const [dragAreaClass, setDragAreaClass] = useState("drag-area");
   // Update input if a contact is being edited
   useEffect(() => {
     setInput(contact);
@@ -116,7 +120,7 @@ const Editor = props => {
   const handleSave = () => {
     props.handleSave(input);
     setInput({
-      photo: "",
+      photo: icons.profilePic2,
       fName: "",
       lName: "",
       tel: ""
@@ -125,7 +129,7 @@ const Editor = props => {
   const resetInputs = () => {
     props.resetInputs();
     setInput({
-      photo: "",
+      photo: icons.profilePic2,
       fName: "",
       lName: "",
       tel: ""
@@ -143,17 +147,57 @@ const Editor = props => {
   const handleChangeTel = e => {
     setInput(Object.assign({}, input, {tel: e.target.value}));
   };
+  let inputElement; // input type file
+  const readFile = file => {
+    if (file.type !== "image/jpeg") {
+      console.log(file.type);
+      console.log('Selecciona un archivo JPG', { appearance: 'error' });
+      return;
+    }
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      setInput(Object.assign({}, input, {photo: reader.result}));
+    }
+    reader.readAsDataURL(file);
+  };
   return (
     <div>
       <h4 className="text-center">{props.heading}</h4>
-      <label className="d-flex flex-column mb-2">
-        Foto:
-        <input
-          type="file"
-          value={input.photo}
-          onChange={handleChangePhoto}
-        />
-      </label>
+      <div
+        className={"photo-container ".concat(dragAreaClass)}
+        onDragOver={e => {
+          e.preventDefault();
+          setDragAreaClass("drag-area active");
+          setPhotoText(releaseText);
+        }}
+        onDragLeave={() => {
+          setDragAreaClass("drag-area");
+          setPhotoText(dragText);
+        }}
+        onDrop={e => {
+          e.preventDefault();
+          setDragAreaClass("drag-area");
+          setPhotoText(dragText);
+          readFile(e.dataTransfer.files[0]);
+        }}
+      >
+        <img className="w-100" height="220" src={input.photo} />
+        <p
+          onDragOver={e => e.stopPropagation()}
+          onDragLeave={e => e.stopPropagation()}
+          onDrop={e => e.stopPropagation()}
+        >{photoText}</p>
+      </div>
+      <button className="btn btn-secondary w-100 my-2"
+        onClick={() => inputElement.click()}
+        >Selecciona una foto
+      </button>
+      <input type="file"
+        ref={input => inputElement = input } hidden
+        onChange={e => {
+          readFile(e.target.files[0]);
+        }}
+      />
       <label className="d-flex flex-column mb-2">
         Nombre:
         <input

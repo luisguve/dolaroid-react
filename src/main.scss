@@ -27,46 +27,41 @@ body {
   width: 100vw;
   background: rgba(0,60,60,0.8);
   z-index: 999;
-}
-.drag-area{
-  min-width: 50vw;
-  background: $primary;
-  border: 2px dashed #fff;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 30px;
-}
-.drag-area.active{
-  border: 2px solid #fff;
-}
-.drag-area {
-  img.upload {
-    width: 120px;
-  }
-  header{
-    font-size: 30px;
-    font-weight: 500;
-    color: #fff;
-  }
-  span{
-    font-size: 25px;
-    font-weight: 500;
-    color: #fff;
-    margin: 10px 0 15px 0;
-  }
-  button{
-    padding: 10px 25px;
-    font-size: 20px;
-    font-weight: 500;
-    border: none;
-    outline: none;
-    background: #fff;
-    color: $primary;
+  .drag-area {
+    min-width: 50vw;
+    background: $primary;
+    border: 2px dashed #fff;
     border-radius: 5px;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    header{
+      font-size: 30px;
+      font-weight: 500;
+      color: #fff;
+    }
+    span{
+      font-size: 25px;
+      font-weight: 500;
+      color: #fff;
+      margin: 10px 0 15px 0;
+    }
+    button{
+      padding: 10px 25px;
+      font-size: 20px;
+      font-weight: 500;
+      border: none;
+      outline: none;
+      background: #fff;
+      color: $primary;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+  .drag-area.active{
+    border: 2px solid #fff;
   }
 }
 
@@ -120,3 +115,22 @@ body {
   }
 }
 
+aside {
+  .photo-container {
+    position: relative;
+    background: rgba(0,0,0,0.2);
+    img {
+      object-fit: cover;
+      opacity: 0.4
+    }
+    p {
+      position: absolute;
+      left: calc(50% - 85px);
+      top: 50%;
+      background: rgba(79,98,125,0.7);
+      border-radius: 15px;
+      color: aliceblue;
+      padding: 10px;
+    }
+  }
+}

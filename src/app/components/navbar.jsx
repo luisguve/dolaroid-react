@@ -140,7 +140,7 @@ const Modal = props => {
         <span>o...</span>
         <button onClick={() => inputElement.click()}>Selecciona el archivo</button>
         <input type="file"
-          ref={input => inputElement = input } hidden
+          ref={input => inputElement = input} hidden
           onChange={e => {
             readFile(e.target.files[0]);
           }}
