@@ -12,7 +12,23 @@ import Sidebar from "./app/components/sidebar";
 import Dashboard from "./app/components/dashboard";
 import Footer from "./app/components/footer";
 
+// Redux and VCF for testing purposes.
+import { loadContacts } from "./app/redux/actions";
+import vcf from "vcf";
+import vcfSample from "./app/redux/contactos.vcf";
+
 'use strict';
+
+let vCards;
+try {
+  vCards = vcf.parse(vcfSample);
+} catch(err) {
+  console.log(err);
+}
+
+if (vCards) {
+  store.dispatch(loadContacts(vCards));
+}
 
 const domContainer = document.querySelector('#react-app');
 ReactDOM.render(
