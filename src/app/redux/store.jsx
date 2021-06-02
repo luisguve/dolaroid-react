@@ -2,7 +2,7 @@ import * as reducers from './reducers';
 import { createStore, combineReducers } from "redux";
 import { loadContacts } from "./actions";
 import vcf from "vcf";
-import vcfSample from "./vcfSample.vcf";
+import vcfSample from "./contactos.vcf";
 import { devToolsEnhancer } from 'redux-devtools-extension';
 
 const store = createStore(combineReducers(reducers), devToolsEnhancer());
