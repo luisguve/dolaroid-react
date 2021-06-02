@@ -64,8 +64,13 @@ const contacts = (state = DEFAULT_STATE, action) => {
     if (!newContacts.length) {
       newState.contactsToList = null;
     }
-    if (newState.currentContact.idx == action.idx) {
-      newState.currentContact = null;
+    if (newState.currentContact) {
+      if (newState.currentContact.idx == action.idx) {
+        newState.currentContact = null;
+      } else if (action.idx < newState.currentContact.idx) {
+        // Fix index if the deleted contact was before the current contact.
+        newState.currentContact.idx--;
+      }
     }
     console.log("contacto eliminado mano");
     return newState;
