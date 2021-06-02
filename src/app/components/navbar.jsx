@@ -47,53 +47,68 @@ const Navbar = props => {
     addToast("Lista de contactos limpiada", { appearance: "success" });
   };
   const handleSettings = () => {
+    if (window.innerWidth <= 767) {
+      burgerButton.click();
+    }
     dispatch(actions.listBackgrounds());
   };
-  let downloadClass = "icon me-5";
-  let cleanClass = "icon me-5";
+  let buttonsClass = "border-0 mx-2 bg-transparent p-0 d-flex flex-md-column align-items-center";
+  let disabled = "";
   if (!contacts.length) {
-    downloadClass += " disabled";
-    cleanClass += " disabled";
+    disabled = " disabled";
   }
+  let burgerButton;
   return (
-    <div className="border-bottom navbar-container d-flex align-items-center">
-      <div className="container">
-        <nav className="d-flex justify-content-between">
-          <div className="d-flex">
-            <img
-              alt=""
-              className="icon me-5"
-              title="Subir al chivo"
-              src={icons.vcf}
-              onClick={() => setShowModal(true)} />
-            <img
-              alt=""
-              title="Descargar al chivo"
-              className={downloadClass}
-              src={icons.download}
-              onClick={handleDownload}
-            />
-            <img
-              alt=""
-              title="Limpiar lista de contactos"
-              className={cleanClass}
-              src={icons.clean}
-              onClick={handleClean}
-            />
-            <button
-             className="border-0 bg-transparent p-0"
-             onClick={handleSettings}>
-              <img alt="" className="icon me-2" src={icons.settings} />
-              Cambiar fondo
+    <div className="border-bottom navbar-container d-flex align-items-md-center">
+      <nav className="navbar navbar-expand-md navbar-light bg-light w-100">
+        <div className="container-lg">
+          <div className="d-flex justify-content-end w-100 d-md-none">
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" ref={burger => burgerButton = burger}>
+              <span className="navbar-toggler-icon"></span>
             </button>
           </div>
-          <div></div>
-        </nav>
-        {showModal && <Modal setFileContents={handleFileContents} hide={() => setShowModal(false)} />}
-      </div>
+          <div className="collapse navbar-collapse justify-content-md-center justify-content-lg-end" id="navbarNav">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <button className={buttonsClass}
+                 onClick={() => setShowModal(true)}>
+                  <img alt="" className="icon" title="Subir al chivo"
+                    src={icons.vcf} />
+                  <p className="m-0 text-muted">Importar</p>
+                </button>
+              </li>
+              <li className="nav-item">
+                <button className={buttonsClass.concat(disabled)}
+                  onClick={handleDownload}>
+                  <img alt="" title="Descargar al chivo" className="icon"
+                src={icons.download} />
+                  <p className="m-0 text-muted">Exportar</p>
+                </button>
+              </li>
+              <li className="nav-item">
+                <button className={buttonsClass.concat(disabled)}
+                  onClick={handleClean}>
+                  <img alt="" title="Limpiar lista de contactos" className="icon"
+                src={icons.clean} />
+                  <p className="m-0 text-muted">Eliminar todo</p>
+                </button>
+              </li>
+              <li className="nav-item">
+                <button className={buttonsClass.concat(disabled)}
+                onClick={handleSettings}>
+                  <img alt="" className="icon" src={icons.settings} />
+                  <p className="m-0 text-muted">Personalizar</p>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      {showModal && <Modal setFileContents={handleFileContents} hide={() => setShowModal(false)} />}
     </div>
   );
 };
+
 
 const Modal = props => {
   const dragText = "Arrastra el archivo aquí";
