@@ -8,6 +8,7 @@ import edit from "./icons/edit.png";
 import trash from "./icons/trash.png";
 import clean from "./icons/clean.png";
 import settings from "./icons/settings.png";
+import copy from "./icons/copy.png";
 // Images
 import rachelHurdWood from "./imgs/rachel2.jpg";
 import priyaPrakash from "./imgs/priya-prakash.jpg";
@@ -25,7 +26,8 @@ const icons = {
   edit,
   trash,
   clean,
-  settings
+  settings,
+  copy
 };
 const imgs = {
   "rachel": {
