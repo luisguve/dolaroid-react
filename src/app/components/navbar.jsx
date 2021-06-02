@@ -53,7 +53,7 @@ const Navbar = props => {
               <span className="navbar-toggler-icon"></span>
             </button>
           </div>
-          <div className="collapse navbar-collapse justify-content-md-center justify-content-lg-end" id="navbarNav">
+          <div className="collapse navbar-collapse justify-content-md-center" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
                 <button className={buttonsClass}
