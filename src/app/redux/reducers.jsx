@@ -61,6 +61,12 @@ const contacts = (state = DEFAULT_STATE, action) => {
     newContacts.push(...state.contacts.slice(action.idx + 1));
     newState.contacts = newContacts;
     newState.contactsToList = newContacts;
+    if (!newContacts.length) {
+      newState.contactsToList = null;
+    }
+    if (newState.currentContact.idx == action.idx) {
+      newState.currentContact = null;
+    }
     console.log("contacto eliminado mano");
     return newState;
 
