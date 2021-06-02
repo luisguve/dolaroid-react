@@ -87,7 +87,7 @@ body {
   }
 }
 
-button.add {
+button.mobile {
   width: 80px;
   height: 80px;
   font-size: 50px;
@@ -98,8 +98,16 @@ button.add {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #8afff4;
-  box-shadow: -7px 7px 13px 0px rgba(39,171,171,0.5);
+  &.quit {
+    top: 15px;
+    color: #ec89ec;
+    z-index: 6;
+    box-shadow: -7px 7px 13px 0px #ec89ec;
+  }
+  &.add {
+    color: #8afff4;
+    box-shadow: -7px 7px 13px 0px rgba(39,171,171,0.5);
+  }
 }
 
 .main-wrapper {
