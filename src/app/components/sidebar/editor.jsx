@@ -13,11 +13,12 @@ const Editor = props => {
   if ((contact.fName || contact.lName) && contact.tel) {
     contact.valid = true;
   }
-  const [input, setInput] = useState(contact);
-  const [phone, setPhone] = useState({
+  const defaultPhone = {
     label: "Teléfono:",
     valid: true
-  });
+  };
+  const [input, setInput] = useState(contact);
+  const [phone, setPhone] = useState(defaultPhone);
   const { addToast } = useToasts();
   // Update input if a contact is being edited
   useEffect(() => {
@@ -41,6 +42,7 @@ const Editor = props => {
       lName: "",
       tel: ""
     });
+    setPhone(defaultPhone);
   }
   const handleChangeFName = e => {
     let valid = ((e.target.value || input.lName) && (input.tel && phone.valid));
