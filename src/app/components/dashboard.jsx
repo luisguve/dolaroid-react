@@ -61,7 +61,7 @@ const Dashboard = props => {
   };
 
   return (
-    <main style={config.style}>
+    <main style={config.style} className="h-100 d-flex flex-column">
       {
         settings.listBackgrounds ?
         <BackgroundChooser
@@ -99,7 +99,7 @@ const BackgroundChooser = props => {
       checked = "checked";
     }
     options.push(
-      <label className="col-4 px-0" key={id}>
+      <label className="col-6 col-md-4 px-0" key={id}>
         <input type="radio" checked={checked} value={id} name="background"
          onChange={e => setBgId(e.target.value)}/>
         <div className="content p-2">
@@ -110,7 +110,7 @@ const BackgroundChooser = props => {
     );
   }
   return (
-    <div className="background-chooser px-3 d-flex flex-column justify-content-end">
+    <div className="background-chooser px-3 d-flex flex-column">
       {
       !props.inPreview &&
       <React.Fragment>
@@ -150,8 +150,8 @@ const Contacts = props => {
   return (
     <React.Fragment>
       {/* Search bar */}
-      <div className="d-flex align-items-center search px-4">
-        <span className="ps-2 pe-4 w-100">
+      <div className="d-flex align-items-center search px-2 px-md-4">
+        <span className="ps-md-2 pe-md-4 w-100">
           <input
             className="form-control"
             type="search"
@@ -162,7 +162,7 @@ const Contacts = props => {
         </span>
       </div>
       {/* Contacts to list */}
-      <div className="results px-4">
+      <div className="results ps-2 ps-md-4 pe-0 pe-md-4 me-2">
         <Results contacts={contacts} />
       </div>
     </React.Fragment>
@@ -171,7 +171,7 @@ const Contacts = props => {
 
 const Results = props => {
   let results = (
-    <div className="d-flex h-25 w-100 justify-content-center align-items-center">
+    <div className="d-flex w-100 justify-content-center align-items-center">
       <div className="p-3 no-contacts">
         <h1 className="fs-2">Carga un archivo vCard o crea contactos</h1>
         <p className="text-center fw-bold fs-6">Tus contactos aparecerán aquí</p>
