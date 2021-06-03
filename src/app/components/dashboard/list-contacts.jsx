@@ -8,7 +8,7 @@ const ListContacts = props => {
   let results = (
     <div className="d-flex flex-column w-100 justify-content-center align-items-center">
       <div className="p-3 no-contacts">
-        <h1 className="fs-2">Carga un archivo vCard o crea contactos</h1>
+        <h1 className="fs-2 text-center">Carga un archivo vCard o crea contactos</h1>
         <p className="text-center fw-bold fs-6">Tus contactos aparecerán aquí</p>
       </div>
       <button
@@ -24,7 +24,7 @@ const ListContacts = props => {
       results = (
         <div className="d-flex h-25 w-100 justify-content-center align-items-center">
           <div className="p-3 no-contacts">
-            <h1 className="fs-2">No se encontraron contactos</h1>
+            <h1 className="fs-2 text-center">No se encontraron contactos</h1>
           </div>
         </div>
       );
