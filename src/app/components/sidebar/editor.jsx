@@ -135,7 +135,7 @@ const Editor = props => {
           className="form-control"
         />
       </label>
-      <label className="d-flex flex-column mb-2">
+      <label className="d-flex flex-column mb-2 mb-md-0">
         <span className="text-muted">{phone.label}</span>
         <input
           type="text"
@@ -158,24 +158,32 @@ const Editor = props => {
             onClick={handleDelete}
           >Eliminar contacto</button></span>
         }
-        <div className="d-flex mt-2">
-          <span className="w-50 pe-1"><button
-            className={
-              "btn btn-secondary w-100".concat(
-                (!(input.fName || input.lName || input.tel) && input.photo == icons.profilePic2) ?
-                " disabled" : ""
-              )
-            }
-            onClick={resetInputs}
-          >{props.discardLabel}</button></span>
-          <span className="w-50 mt-md-0 ps-1"><button
-            className={
-              "btn btn-primary w-100".concat(
-                !input.valid || !phone.valid || input.tel.length != 11 ? " disabled" : ""
-              )
-            }
-            onClick={handleSave}
-          >{props.saveLabel}</button></span>
+        <div className="d-flex mt-2 mt-md-0">
+          <span className="w-50 pe-1">
+            <button
+              className={
+                "btn btn-secondary w-100".concat(
+                  (!(input.fName || input.lName || input.tel) && input.photo == icons.profilePic2) ?
+                  " disabled" : ""
+                )
+              }
+              onClick={resetInputs}
+            >
+              {props.discardLabel}
+            </button>
+          </span>
+          <span className="w-50 mt-md-0 ps-1">
+            <button
+              className={
+                "btn btn-primary w-100".concat(
+                  !input.valid || !phone.valid || input.tel.length != 11 ? " disabled" : ""
+                )
+              }
+              onClick={handleSave}
+            >
+              {props.saveLabel}
+            </button>
+          </span>
         </div>
       </div>
     </div>
