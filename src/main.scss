@@ -55,6 +55,7 @@ body {
       margin: 10px 0 15px 0;
     }
     button{
+      pointer-events: initial;
       padding: 10px 25px;
       font-size: 20px;
       font-weight: 500;
