@@ -66,6 +66,7 @@ body {
 .navbar-container {
   height: 10vh;
   &.navopen {
+    min-height: 10vh;
     height: auto;
   }
   @media screen and (min-width: 768px) {
@@ -77,10 +78,12 @@ body {
       margin-bottom: 0;
     }
     button {
-      cursor: pointer;
-      opacity: 0.4;
-      &:hover {
-        opacity: 1;
+      @media screen and (min-width: 768px) {
+        cursor: pointer;
+        opacity: 0.5;
+        &:hover {
+          opacity: 1;
+        }
       }
       &.disabled {
         opacity: 0.5;
@@ -98,23 +101,25 @@ body {
 }
 
 button.mobile {
-  width: 80px;
-  height: 80px;
   font-size: 50px;
   position: fixed;
-  z-index: 4;
-  right: 16px;
-  bottom: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   &.quit {
-    top: 15px;
+    width: 60px;
+    height: 60px;
+    z-index: 6; /* Display in front of editor */
+    top: 0;
+    right: 0;
     color: #ec89ec;
-    z-index: 6;
-    box-shadow: -7px 7px 13px 0px #ec89ec;
   }
   &.add {
+    z-index: 4; /* Display in front of dashboard but hide behind of editor */
+    right: 16px;
+    bottom: 15px;
+    width: 80px;
+    height: 80px;
     color: #8afff4;
     box-shadow: -7px 7px 13px 0px rgba(39,171,171,0.5);
   }
@@ -215,9 +220,11 @@ button.mobile {
     }
   }
   .background-chooser {
-    height: 92vh;
+    height: 90vh;
+    padding-bottom: 40px;
     @media screen and (min-width: 768px) {
       height: 91vh;
+      padding-bottom: 0;
     }
     .sample {
       width: 100%;
@@ -323,5 +330,10 @@ footer {
     @media screen and (min-width: 992px) {
       font-size: 14px;
     }
+  }
+}
+.w-sm-auto {
+  @media screen and (min-width: 576px) {
+    width: auto !important;
   }
 }
