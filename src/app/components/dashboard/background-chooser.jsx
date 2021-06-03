@@ -30,7 +30,7 @@ const BackgroundChooser = props => {
          onChange={e => setBgId(e.target.value)}/>
         <div className="content p-2">
           <img className="img-fluid sample" src={imgs[id].url} alt={imgs[id].name} />
-          <p className="text-center m-0 pt-1"><em>{imgs[id].name}</em></p>
+          <p className="text-center m-0 pt-1 small"><em>{imgs[id].name}</em></p>
         </div>
       </label>
     );
@@ -46,16 +46,22 @@ const BackgroundChooser = props => {
         <div className="row mx-0 options">{options}</div>
       </React.Fragment>
       }
-      <div className="py-2 d-flex justify-content-center">
-        <button className="mx-2 btn btn-info" onClick={previewBackground}>
-          {!props.inPreview ? "Vista previa" : "Volver"}
-        </button>
-        <button className="mx-2 btn btn-secondary" onClick={cancel}>
-          Cancelar
-        </button>
-        <button className="mx-2 btn btn-primary" onClick={accept}>
-          Aceptar
-        </button>
+      <div className="py-2 d-flex justify-content-center flex-wrap">
+        <span className="px-2 w-100 w-sm-auto mb-2 mb-sm-0">
+          <button className="btn btn-info w-100" onClick={previewBackground}>
+            {!props.inPreview ? "Vista previa" : "Volver"}
+          </button>
+        </span>
+        <span className="ps-2 pe-1 px-sm-2 w-50 w-sm-auto">
+          <button className="btn btn-secondary w-100" onClick={cancel}>
+            Cancelar
+          </button>
+        </span>
+        <span className="ps-1 pe-2 px-sm-2 w-50 w-sm-auto">
+          <button className="btn btn-primary w-100" onClick={accept}>
+            Aceptar
+          </button>
+        </span>
       </div>
     </div>
   );
