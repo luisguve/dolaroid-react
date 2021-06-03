@@ -97,6 +97,11 @@ const Sidebar = props => {
     addToast(currentContact.get("fn")._data + ' eliminado', { appearance: 'success' });
   };
 
+  const resetInputs = () => {
+    dispatch(getContact(-1));
+    setAddingNewContact(false);
+  };
+
   const [addingNewContact, setAddingNewContact] = useState(false);
   // Display editor on mobile devices only if there is a contact to be edited.
   let displayEditor = (currentContact || addingNewContact) ? " d-flex" : " d-none";
@@ -111,10 +116,7 @@ const Sidebar = props => {
           handleSave={handleSave}
           handleDelete={handleDelete}
           saveLabel={saveLabel}
-          resetInputs={() => {
-            dispatch(getContact(-1));
-            setAddingNewContact(false);
-          }}
+          resetInputs={resetInputs}
           discardLabel={discardLabel}
         />
         <Footer />
@@ -124,7 +126,7 @@ const Sidebar = props => {
         <React.Fragment>
           <button
             className={"p-2 btn btn-danger rounded-circle d-md-none mobile quit".concat(displayEditor)}
-            onClick={() => setAddingNewContact(false)}
+            onClick={resetInputs}
           >
             x
           </button>
