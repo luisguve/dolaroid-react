@@ -77,8 +77,11 @@ body {
 
 .navbar-container {
   height: 10vh;
+  &.navopen {
+    height: auto;
+  }
   @media screen and (min-width: 768px) {
-    height: 6vh;
+    height: 8vh;
   }
   .nav-item {
     margin-bottom: 8px;
@@ -311,5 +314,11 @@ aside {
 footer {
   p {
     font-size: 14px;
+    @media screen and (min-width: 768px) {
+      font-size: 10px;
+    }
+    @media screen and (min-width: 992px) {
+      font-size: 14px;
+    }
   }
 }
