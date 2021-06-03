@@ -108,7 +108,7 @@ const Sidebar = props => {
 
   return (
     <div className="h-100 d-flex justify-content-md-center">
-      <aside className={"py-3 px-xl-5 pb-0 d-md-flex flex-column justify-content-between".concat(displayEditor)} >
+      <aside className={"py-xl-3 px-xl-5 pb-0 d-md-flex flex-column justify-content-between".concat(displayEditor)} >
         <Editor
           {...currentContactInfo}
           editing={currentContact != null}
