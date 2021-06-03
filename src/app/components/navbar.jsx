@@ -95,6 +95,13 @@ const Navbar = props => {
                   <p className="m-0 text-muted">Personalizar</p>
                 </button>
               </li>
+              <li className="nav-item">
+                <a href="https://github.com/luisguve/vcards-app" target="_blank"
+                className="nav-link mx-2 p-0 d-flex flex-md-column align-items-center">
+                  <img alt="" className="icon" src={icons.github} />
+                  Source code
+                </a>
+              </li>
             </ul>
           </div>
         </div>
