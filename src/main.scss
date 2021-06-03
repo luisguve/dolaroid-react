@@ -9,18 +9,6 @@ body {
   font-family: sans-serif;
 }
 
-.icon {
-  max-width: 50px;
-  cursor: pointer;
-  @media screen and (min-width: 768px) {
-    width: 25px;
-  }
-}
-.icon.disabled {
-  opacity: 0.5;
-  cursor: initial;
-}
-
 .modal {
   position: fixed;
   display: flex;
@@ -88,8 +76,23 @@ body {
     @media screen and (min-width: 768px) {
       margin-bottom: 0;
     }
-    button img {
-      margin-right: 6px;
+    button {
+      cursor: pointer;
+      opacity: 0.4;
+      &:hover {
+        opacity: 1;
+      }
+      &.disabled {
+        opacity: 0.5;
+        cursor: initial;
+      }
+      .icon {
+        margin-right: 6px;
+        max-width: 50px;
+        @media screen and (min-width: 768px) {
+          width: 25px;
+        }
+      }
     }
   }
 }
