@@ -127,8 +127,8 @@ const contacts = (state = DEFAULT_STATE, action) => {
 const defaultSettings = {
   listBackgrounds: false,
   currentBackground: {
-    url: `url(${imgs["rachel"].url})`,
-    id: "rachel"
+    url: `url(${imgs["basicBg1"].url})`,
+    id: "basicBg1"
   }
 };
 
