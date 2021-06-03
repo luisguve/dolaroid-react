@@ -89,7 +89,7 @@ const Navbar = props => {
                 </button>
               </li>
               <li className="nav-item">
-                <button className={buttonsClass.concat(disabled)}
+                <button className={buttonsClass}
                 onClick={handleSettings}>
                   <img alt="" className="icon" src={icons.settings} />
                   <p className="m-0 text-muted">Personalizar</p>
