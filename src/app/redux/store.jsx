@@ -10,7 +10,12 @@ const store = createStore(combineReducers(reducers), devToolsEnhancer());
 
 let vCards = [];
 let loadedFrom;
-if (!vcfSample) {
+try {
+  vCards = vcf.parse(vcfSample);
+  loadedFrom = "Loaded contacts from vCard";
+} catch(err) {
+  console.log(err);
+  // Failed to load vCard. Load contacts from JS.
   // Create contacts
   contacts.map(contact => {
     let info = new vcf();
@@ -21,13 +26,6 @@ if (!vcfSample) {
     vCards.push(info);
   });
   loadedFrom = "Loaded contacts from js";
-} else {
-  try {
-    vCards = vcf.parse(vcfSample);
-  } catch(err) {
-    console.log(err);
-  }
-  loadedFrom = "Loaded contacts from vCard";
 }
 
 if (vCards.length) {
