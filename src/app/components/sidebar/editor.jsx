@@ -82,7 +82,7 @@ const Editor = props => {
 
   return (
     <div className="d-flex flex-column">
-      <h4 className="text-center">{props.heading}</h4>
+      <h4 className="text-center mt-2 mt-md-0">{props.heading}</h4>
       <div className={"photo-container ".concat(dragAreaClass)}
         onDragOver={e => {
           e.preventDefault();
