@@ -62,7 +62,7 @@ const Modal = props => {
       }}
       onClick={e => e.stopPropagation()}>
         <img className="upload" alt="" src={icons.vcf} />
-        <header>{headerText}</header>
+        <header className="text-center">{headerText}</header>
         <span>o...</span>
         <button onClick={() => inputElement.click()}>Selecciona el archivo</button>
         <input type="file"
