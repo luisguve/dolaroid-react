@@ -4,6 +4,7 @@ import { searchContact } from "../../redux/actions";
 
 const SearchBar = props => {
   const contacts = useSelector(state => state.contacts.contactsToList);
+  const searchDisabled = useSelector(state => !state.contacts.contacts.length);
   const dispatch = useDispatch();
   const handleSearch = e => {
     if (contacts == null) {
@@ -21,6 +22,7 @@ const SearchBar = props => {
           placeholder="Buscar contacto"
           aria-label="Buscar contacto"
           onChange={handleSearch}
+          disabled={searchDisabled}
         />
       </span>
     </div>
