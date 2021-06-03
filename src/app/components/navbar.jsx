@@ -44,12 +44,21 @@ const Navbar = props => {
     disabled = " disabled";
   }
   let burgerButton;
+  const [navOpen, setNavOpen] = useState(false);
   return (
-    <div className="border-bottom navbar-container d-flex align-items-md-center">
-      <nav className="navbar navbar-expand-md navbar-light bg-light w-100">
-        <div className="container-lg">
+    <div className={"border-bottom navbar-container d-flex align-items-md-center".concat(navOpen?" navopen":"")}>
+      <nav className="navbar navbar-expand-md navbar-light bg-light w-100 py-md-0">
+        <div className="container-lg mt-md-1">
           <div className="d-flex justify-content-end w-100 d-md-none">
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" ref={burger => burgerButton = burger}>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" ref={burger => {
+              burgerButton = burger;
+            }} onClick={() => {
+              if (navOpen) {
+                setTimeout(() => {setNavOpen(false)}, 350)
+              } else {
+                setNavOpen(true);
+              }
+            }}>
               <span className="navbar-toggler-icon"></span>
             </button>
           </div>
