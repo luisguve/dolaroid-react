@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import vcf from "vcf";
 import { icons } from "../../../assets";
 import { useToasts } from "react-toast-notifications";
+import { InlineLoader } from "../../loaders";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { addContact, editContact, getContact, deleteContact } from "../../redux/actions";
 import Footer from "../footer";
-import Editor from "./editor";
+
+const LazyEditor = React.lazy(() => import("./editor"));
 
 const Sidebar = props => {
   const dispatch = useDispatch();
@@ -109,16 +111,18 @@ const Sidebar = props => {
   return (
     <div className="h-100 d-flex justify-content-md-center">
       <aside className={"py-xl-3 px-xl-5 pb-0 d-md-flex flex-column justify-content-between".concat(displayEditor)} >
-        <Editor
-          {...currentContactInfo}
-          editing={currentContact != null}
-          heading={heading}
-          handleSave={handleSave}
-          handleDelete={handleDelete}
-          saveLabel={saveLabel}
-          resetInputs={resetInputs}
-          discardLabel={discardLabel}
-        />
+        <Suspense fallback={<InlineLoader />}>
+          <LazyEditor
+            {...currentContactInfo}
+            editing={currentContact != null}
+            heading={heading}
+            handleSave={handleSave}
+            handleDelete={handleDelete}
+            saveLabel={saveLabel}
+            resetInputs={resetInputs}
+            discardLabel={discardLabel}
+          />
+        </Suspense>
         <Footer />
       </aside>
       {

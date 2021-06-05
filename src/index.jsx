@@ -1,6 +1,7 @@
 import "./main.scss";
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
+import { StyledInlineLoader } from "./app/loaders";
 // Redux
 import { Provider } from "react-redux";
 import store from "./app/redux/store";
@@ -9,8 +10,9 @@ import { ToastProvider } from "react-toast-notifications";
 // Components
 import Navbar from "./app/components/navbar";
 import Sidebar from "./app/components/sidebar";
-import Dashboard from "./app/components/dashboard";
 import Footer from "./app/components/footer";
+
+const LazyDashboard = React.lazy(() => import("./app/components/dashboard"));
 
 'use strict';
 
@@ -25,7 +27,9 @@ ReactDOM.render(
             <Sidebar />
           </div>
           <div className="col-12 col-md-8 px-0 border-md-start dashboard">
-            <Dashboard />
+            <Suspense fallback={<StyledInlineLoader />}>
+              <LazyDashboard />
+            </Suspense>
           </div>
         </div>
       </div>

@@ -1,11 +1,13 @@
 import { icons } from "../../assets";
-import React from "react";
+import React, { Suspense } from "react";
 import { useToasts } from "react-toast-notifications";
 import { useState } from "react";
-import Modal from "./drag-modal";
+import Loader from "../loaders";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../redux/actions";
+
+const LazyModal = React.lazy(() => import("./drag-modal"));
 
 const Navbar = props => {
   let contacts = useSelector(state => state.contacts.contacts);
@@ -106,7 +108,12 @@ const Navbar = props => {
           </div>
         </div>
       </nav>
-      {showModal && <Modal hide={() => setShowModal(false)} />}
+      {
+        showModal &&
+        <Suspense fallback={<Loader />}>
+          <LazyModal hide={() => setShowModal(false)} />
+        </Suspense>
+      }
     </div>
   );
 };

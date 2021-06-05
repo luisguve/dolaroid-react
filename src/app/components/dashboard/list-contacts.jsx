@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Contact from "./contact";
-import Modal from "../drag-modal";
+import Loader from "../../loaders";
+
+const LazyModal = React.lazy(() => import ("../drag-modal"));
 
 const ListContacts = props => {
   const [showModal, setShowModal] = useState(false);
@@ -15,7 +17,12 @@ const ListContacts = props => {
         className="btn btn-primary mt-3"
         onClick={() => setShowModal(true)}
       >Cargar vCard</button>
-      { showModal && <Modal hide={() => setShowModal(false)} /> }
+      {
+        showModal &&
+        <Suspense fallback={Loader}>
+          <LazyModal hide={() => setShowModal(false)} />
+        </Suspense>
+      }
     </div>
   );
 
