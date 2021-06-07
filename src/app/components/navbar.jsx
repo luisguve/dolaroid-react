@@ -110,7 +110,7 @@ const Navbar = props => {
       </nav>
       {
         showModal &&
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<Loader label="Cargando..." />}>
           <LazyModal hide={() => setShowModal(false)} />
         </Suspense>
       }

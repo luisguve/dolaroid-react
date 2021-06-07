@@ -111,7 +111,7 @@ const Sidebar = props => {
   return (
     <div className="h-100 d-flex justify-content-md-center">
       <aside className={"py-xl-3 px-xl-5 pb-0 d-md-flex flex-column justify-content-between".concat(displayEditor)} >
-        <Suspense fallback={<InlineLoader />}>
+        <Suspense fallback={<InlineLoader label="Cargando editor..." />}>
           <LazyEditor
             {...currentContactInfo}
             editing={currentContact != null}

@@ -27,7 +27,7 @@ ReactDOM.render(
             <Sidebar />
           </div>
           <div className="col-12 col-md-8 px-0 border-md-start dashboard">
-            <Suspense fallback={<StyledInlineLoader />}>
+            <Suspense fallback={<StyledInlineLoader label="Cargando dashboard..." />}>
               <LazyDashboard />
             </Suspense>
           </div>

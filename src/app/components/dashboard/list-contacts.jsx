@@ -19,7 +19,7 @@ const ListContacts = props => {
       >Cargar vCard</button>
       {
         showModal &&
-        <Suspense fallback={Loader}>
+        <Suspense fallback={<Loader label="Cargando..." />}>
           <LazyModal hide={() => setShowModal(false)} />
         </Suspense>
       }
