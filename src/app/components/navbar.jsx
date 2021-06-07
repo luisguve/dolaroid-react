@@ -69,7 +69,7 @@ const Navbar = props => {
               <li className="nav-item">
                 <button className={buttonsClass}
                  onClick={() => setShowModal(true)}>
-                  <img alt="" className="icon" title="Subir al chivo"
+                  <img alt="" className="icon" title="Subir archivo"
                     src={icons.vcf} />
                   <p className="m-0 text-muted">Importar</p>
                 </button>
@@ -77,7 +77,7 @@ const Navbar = props => {
               <li className="nav-item">
                 <button className={buttonsClass.concat(disabled)}
                   onClick={handleDownload}>
-                  <img alt="" title="Descargar al chivo" className="icon"
+                  <img alt="" title="Descargar archivo" className="icon"
                 src={icons.download} />
                   <p className="m-0 text-muted">Exportar</p>
                 </button>
