@@ -5,6 +5,7 @@ import vcf from "vcf";
 // Redux
 import { useDispatch } from "react-redux";
 import { loadContacts } from "../redux/actions";
+import { loadExample } from "../redux/load-contacts";
 
 const Modal = props => {
   const dispatch = useDispatch();
@@ -64,7 +65,15 @@ const Modal = props => {
         <img className="upload" alt="" src={icons.vcf} />
         <header className="text-center">{headerText}</header>
         <span>o...</span>
-        <button onClick={() => inputElement.click()}>Selecciona el archivo</button>
+        <div className="d-flex flex-column">
+          <button onClick={() => inputElement.click()}>Selecciona el archivo</button>
+          <button className="secondary" onClick={() => {
+            loadExample().then(contacts => {
+              dispatch(loadContacts(contacts));
+              props.hide();
+            });
+          }}>Cargar vCard de ejemplo</button>
+        </div>
         <input type="file"
           ref={input => inputElement = input} hidden
           onChange={e => {
