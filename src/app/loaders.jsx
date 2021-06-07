@@ -1,5 +1,5 @@
 import React from "react";
-import trianglify from "../assets/imgs/cool-background.png";
+const getTrianglify = () => import("../assets/imgs/cool-background.png");
 
 const Loader = props => {
   return(
@@ -12,13 +12,32 @@ const Loader = props => {
 const InlineLoader = props => {
   return (
     <div className="inline-loader">
-      <h4>{props.label}</h4>
+      <h4 className="p-5">{props.label}</h4>
     </div>
   );
 };
 
+let defaultBg;
+
+// Load background.
+// Because the background is gonna be imported dynamically,
+// the function will be awaiting for the background.
+(async () => {
+  // Try to load settings from localStorage if available
+  if (typeof(Storage) !== "undefined") {
+    const defaultSettings = JSON.parse(localStorage.getItem("settings"));
+    if (defaultSettings) {
+      defaultBg = defaultSettings.currentBackground.url;
+    }
+  }
+  if (!defaultBg) {
+    const bg = await getTrianglify();
+    defaultBg = `url(${bg.default})`;
+  }
+})();
+
 const style = {
-  background: `url(${trianglify})`,
+  background: defaultBg,
   backgroundSize: "cover",
   backgrundPosition: "center"
 };
@@ -26,7 +45,7 @@ const style = {
 const StyledInlineLoader = props => {
   return (
     <div className="inline-loader" style={style}>
-      <h4>{props.label}</h4>
+      <h4 className="p-5">{props.label}</h4>
     </div>
   );
 };
