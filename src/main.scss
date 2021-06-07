@@ -56,6 +56,15 @@ body {
       color: $primary;
       border-radius: 5px;
       cursor: pointer;
+      &.secondary {
+        margin-top: 10px;
+        border: 2px solid white;
+        background: teal;
+        color: white;
+        &:hover {
+          background: #004e4e;
+        }
+      }
     }
   }
   .drag-area.active{
