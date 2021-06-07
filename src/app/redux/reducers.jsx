@@ -163,7 +163,7 @@ const settings = (state = defaultSettings, action) => {
     case CHANGE_BACKGROUND:
     newState.currentBackground = action.background;
     newState.listBackgrounds = false;
-    saveData("settings", newState);
+    saveData("settings", JSON.stringify(newState));
     return newState;
 
     default:
