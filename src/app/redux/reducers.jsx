@@ -12,6 +12,13 @@ import {
 } from "./actions";
 import { imgs } from "../../assets";
 
+// Save data on localStorage if available as JSON
+const saveData = (key, data) => {
+  if (typeof(Storage) !== "undefined") {
+    localStorage.setItem(key, data);
+  }
+};
+
 const DEFAULT_STATE = {
   contacts: [],
   currentContact: null,
@@ -31,6 +38,7 @@ const contacts = (state = DEFAULT_STATE, action) => {
     newState = DEFAULT_STATE;
     newState.contacts = newContacts;
     newState.contactsToList = newContacts;
+    saveData("contacts", newState.contacts);
     return newState;
 
     case EDIT_CONTACT:
@@ -41,7 +49,7 @@ const contacts = (state = DEFAULT_STATE, action) => {
     newState.contacts = newContacts;
     newState.contactsToList = newContacts;
     newState.currentContact = null;
-    console.log("contacto actualizado. se ve mejor asi");
+    saveData("contacts", newState.contacts);
     return newState;
 
     case GET_CONTACT:
@@ -63,6 +71,9 @@ const contacts = (state = DEFAULT_STATE, action) => {
     newState.contactsToList = newContacts;
     if (!newContacts.length) {
       newState.contactsToList = null;
+      saveData("contacts", "empty");
+    } else {
+      saveData("contacts", newState.contacts);
     }
     if (newState.currentContact) {
       if (newState.currentContact.idx == action.idx) {
@@ -72,7 +83,6 @@ const contacts = (state = DEFAULT_STATE, action) => {
         newState.currentContact.idx--;
       }
     }
-    console.log("contacto eliminado mano");
     return newState;
 
     case ADD_CONTACT:
@@ -82,7 +92,7 @@ const contacts = (state = DEFAULT_STATE, action) => {
     .sort((a, b) => a.get("fn")._data.localeCompare(b.get("fn")._data));
     newState.contacts = newContacts;
     newState.contactsToList = newContacts;
-    console.log("todo fino");
+    saveData("contacts", newState.contacts);
     return newState;
 
     case SEARCH_CONTACT:
@@ -117,6 +127,7 @@ const contacts = (state = DEFAULT_STATE, action) => {
     newState.contacts = [];
     newState.currentContact = null;
     newState.contactsToList = null;
+    saveData("contacts", "empty");
     return newState;
 
     default:
@@ -124,13 +135,23 @@ const contacts = (state = DEFAULT_STATE, action) => {
   }
 };
 
-const defaultSettings = {
-  listBackgrounds: false,
-  currentBackground: {
-    url: `url(${imgs["basicBg1"].url})`,
-    id: "basicBg1"
-  }
-};
+let defaultSettings;
+
+// Try to load settings from localStorage if available
+if (typeof(Storage) !== "undefined") {
+  defaultSettings = localStorage.getItem("settings");
+  defaultSettings = JSON.parse(defaultSettings);
+}
+
+if (!defaultSettings) {
+  defaultSettings = {
+    listBackgrounds: false,
+    currentBackground: {
+      url: `url(${imgs["basicBg1"].url})`,
+      id: "basicBg1"
+    }
+  };
+}
 
 const settings = (state = defaultSettings, action) => {
   let newState = Object.assign({}, state);
@@ -142,6 +163,7 @@ const settings = (state = defaultSettings, action) => {
     case CHANGE_BACKGROUND:
     newState.currentBackground = action.background;
     newState.listBackgrounds = false;
+    saveData("settings", newState);
     return newState;
 
     default:
