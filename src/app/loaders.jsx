@@ -1,18 +1,18 @@
 import React from "react";
 import trianglify from "../assets/imgs/cool-background.png";
 
-const Loader = () => {
+const Loader = props => {
   return(
     <div className="default-loader">
-      <h1 className="p-5">Cargando...</h1>
+      <h1 className="p-5">{props.label}</h1>
     </div>
   );
 };
 
-const InlineLoader = () => {
+const InlineLoader = props => {
   return (
     <div className="inline-loader">
-      <h4>Cargando editor...</h4>
+      <h4>{props.label}</h4>
     </div>
   );
 };
@@ -23,10 +23,10 @@ const style = {
   backgrundPosition: "center"
 };
 
-const StyledInlineLoader = () => {
+const StyledInlineLoader = props => {
   return (
     <div className="inline-loader" style={style}>
-      <h4>Cargando editor...</h4>
+      <h4>{props.label}</h4>
     </div>
   );
 };
