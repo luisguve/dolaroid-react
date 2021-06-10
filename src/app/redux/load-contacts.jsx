@@ -5,7 +5,7 @@ const getVcfSample = () => import("./contactos.vcf");
 const getContacts = () => import("./contacts");
 
 async function loadExample() {
-  let vCards;
+  let vCards = [];
   let loadedFrom;
   try {
     const vcfSample = await getVcfSample();
