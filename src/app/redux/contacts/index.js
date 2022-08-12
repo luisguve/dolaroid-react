@@ -1,38 +1,38 @@
-import bender from "./bender.jpg";
-import cristiano from "./cristiano.jpg";
-import elon from "./elon.jpg";
-import luis from "./luis.jpg";
-import vladimir from "./vladimir.jpg";
+import dustin from "./dustin.jpg";
+import eli from "./eli.jpg";
+import ryan from "./ryan.jpg";
+import jennifer from "./jennifer.jpg";
+import paul from "./paul.jpg";
 
 const contacts = [
   {
-    fn: "Bender Rodríguez",
-    n: "Rodríguez;Bender;;;",
-    photo: bender,
+    fn: "Dustin Smith",
+    n: "Smith;Dustin;;;",
+    photo: dustin,
     number: "04263994280"
   },
   {
-    fn: "Cristiano",
-    n: ";Cristiano;;;",
-    photo: cristiano,
+    fn: "Eli Williams",
+    n: "Willims;Eli;;;",
+    photo: eli,
     number: "04148826636"
   },
   {
-    fn: "Elon Musk",
-    n: "Musk;Elon;;;",
-    photo: elon,
+    fn: "Jennifer Friedman",
+    n: "Friedman;Jennifer;;;",
+    photo: jennifer,
     number: "04125786410"
   },
   {
-    fn: "Luis Villegas",
-    n: "Villegas;Luis;;;",
-    photo: luis,
+    fn: "Paul Graham",
+    n: "Graham;Paul;;;",
+    photo: paul,
     number: "04249069351"
   },
   {
-    fn: "Vladimir Putin",
-    n: "Putin;Vladimir;;;",
-    photo: vladimir,
+    fn: "Ryan Jhonson",
+    n: "Jhonson;Ryan;;;",
+    photo: ryan,
     number: "04128799802"
   },
 ];
