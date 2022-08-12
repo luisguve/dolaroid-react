@@ -1,22 +1,22 @@
 import vcf from "vcf";
 // Dynamically import contacts from JS
-const getContacts = () => import("./contacts");
+const getContacts = () => import("./contactos.vcf");
 
 async function loadExample() {
-  const vCards = [];
-  // Get contacts as an array of JSON
-  const contacts = await getContacts();
-  // Create contacts from array of JSON
-  contacts.default.map(contact => {
-    let info = new vcf();
-    info.set("fn", contact.fn);
-    info.set("photo", contact.photo);
-    info.set("n", contact.n);
-    info.set("tel", contact.number);
-    vCards.push(info);
-  });
-  console.log("Loaded contacts from JS");
-  return vCards;
+
+  try {
+
+    // Get contacts file
+    const file = await getContacts();
+    return vcf.parse(file.default);
+
+  } catch (err) {
+
+    console.log("Invalid vcard:", err);
+    return [];
+
+  }
+
 };
 
 const loadDefaultContacts = () => {
