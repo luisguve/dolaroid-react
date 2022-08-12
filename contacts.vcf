@@ -1,0 +1,31 @@
+BEGIN:VCARD
+VERSION:4.0
+FN:Dustin Smith
+PHOTO:http://localhost:8080/38feef5bf079f101d333.jpg
+N:Smith;Dustin;;;
+TEL:04263994280
+END:VCARD,BEGIN:VCARD
+VERSION:4.0
+FN:Eli Williams
+PHOTO:http://localhost:8080/4346e7b383a6e7ca3222.jpg
+N:Willims;Eli;;;
+TEL:04148826636
+END:VCARD,BEGIN:VCARD
+VERSION:4.0
+FN:Jennifer Friedman
+PHOTO:http://localhost:8080/1805ae15ee0d4a33e9b5.jpg
+N:Friedman;Jennifer;;;
+TEL:04125786410
+END:VCARD,BEGIN:VCARD
+VERSION:4.0
+FN:Paul Graham
+PHOTO:http://localhost:8080/a6af7161426aa383c83c.jpg
+N:Graham;Paul;;;
+TEL:04249069351
+END:VCARD,BEGIN:VCARD
+VERSION:4.0
+FN:Ryan Jhonson
+PHOTO:http://localhost:8080/0c4bcd6cf86373443f55.jpg
+N:Jhonson;Ryan;;;
+TEL:04128799802
+END:VCARD
