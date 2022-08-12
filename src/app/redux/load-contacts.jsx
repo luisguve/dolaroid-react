@@ -1,14 +1,11 @@
 import vcf from "vcf";
-// Dynamically import contacts from JS
-const getContacts = () => import("./contactos.vcf");
+import file from "./contactos.vcf";
 
 async function loadExample() {
 
   try {
 
-    // Get contacts file
-    const file = await getContacts();
-    return vcf.parse(file.default);
+    return vcf.parse(file);
 
   } catch (err) {
 
